@@ -22,7 +22,7 @@ import hus.HusBoard;
 /**
  * A board panel for display and input for Hus. */
 public class HusBoardPanel extends BoardPanel
-implements MouseListener, MouseMotionListener, ComponentListener {
+        implements MouseListener, MouseMotionListener, ComponentListener {
 
     private static final long serialVersionUID = 2648134549469132906L;
 
@@ -95,8 +95,8 @@ implements MouseListener, MouseMotionListener, ComponentListener {
     }
 
     private boolean clickInCircle(int centreX, int centreY, int clickX, int clickY, int radius){
-       return (Math.pow((centreX - clickX), 2) +
-               Math.pow((centreY - clickY), 2)) < Math.pow(radius, 2);
+        return (Math.pow((centreX - clickX), 2) +
+                Math.pow((centreY - clickY), 2)) < Math.pow(radius, 2);
     }
 
     public void mousePressed(MouseEvent arg0) {
@@ -115,6 +115,8 @@ implements MouseListener, MouseMotionListener, ComponentListener {
                 break;
             }
         }
+
+        System.out.println("Mouse Pressed, clicked pit: " + clicked_pit);
 
         HusBoard board = (HusBoard) getCurrentBoard();
 
@@ -186,7 +188,7 @@ implements MouseListener, MouseMotionListener, ComponentListener {
                 g.setColor(PITCOLOR);
 
                 g.fillOval(
-                    x + pit_offset, y + pit_offset, 2 * pit_radius, 2 * pit_radius);
+                        x + pit_offset, y + pit_offset, 2 * pit_radius, 2 * pit_radius);
 
                 pit_centres[0][i * WIDTH_IN_PITS + j] = x + pit_offset + pit_radius;
                 pit_centres[1][i * WIDTH_IN_PITS + j] = y + pit_offset + pit_radius;
@@ -202,11 +204,11 @@ implements MouseListener, MouseMotionListener, ComponentListener {
 
                 if(i == 0 || i == 2){
                     g.drawString(
-                        pit_label, x + grid_size / 2 - (int)r.getWidth() / 2, y);
+                            pit_label, x + grid_size / 2 - (int)r.getWidth() / 2, y);
                 }else{
                     g.drawString(
-                        pit_label, x + grid_size / 2 - (int)r.getWidth() / 2,
-                        y + grid_size / 2 + pit_radius / (int)Math.sqrt(2) + (int)r.getHeight());
+                            pit_label, x + grid_size / 2 - (int)r.getWidth() / 2,
+                            y + grid_size / 2 + pit_radius / (int)Math.sqrt(2) + (int)r.getHeight());
                 }
             }
         }
@@ -215,12 +217,12 @@ implements MouseListener, MouseMotionListener, ComponentListener {
         String p0 = "P0";
         Rectangle2D r = fm.getStringBounds(p0, g).getBounds2D();
         g.drawString(
-            p0, x_off + (int)((w - r.getWidth()) / 2.0), 20);//(int)(h + r.getHeight() * 0.4));
+                p0, x_off + (int)((w - r.getWidth()) / 2.0), 20);//(int)(h + r.getHeight() * 0.4));
 
         String p1 = "P1";
         r = fm.getStringBounds(p1, g).getBounds2D();
         g.drawString(
-            p1, x_off + (int)((w - r.getWidth()) / 2), clip.height - 5);// r.getHeight() * 0.4));
+                p1, x_off + (int)((w - r.getWidth()) / 2), clip.height - 5);// r.getHeight() * 0.4));
     }
 
     /** We use the double-buffering provided by the superclass, but draw
@@ -255,8 +257,8 @@ implements MouseListener, MouseMotionListener, ComponentListener {
                 int pit_centre_y = pit_centres[1][i];
 
                 g.drawString(
-                    s, (int)(pit_centre_x - r.getWidth()/2),
-                    (int)(pit_centre_y + r.getHeight() * 0.4));
+                        s, (int)(pit_centre_x - r.getWidth()/2),
+                        (int)(pit_centre_y + r.getHeight() * 0.4));
             }
         }
     }

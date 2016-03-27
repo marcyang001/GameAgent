@@ -1,0 +1,11 @@
+# Server version 0.08 running on wpa180018.wireless.mcgill.ca:8123
+# Game ID: 22
+# Board class: hus.HusBoard
+# Timeout: 2000
+# First Move Timeout: 30000
+# Date: Sat Mar 26 18:15:11 EDT 2016
+# Player 1: Player-0, 'RandomHusPlayer', running on localhost
+# Player 2: Player-1, 'Human', running on wpa180018.wireless.mcgill.ca
+START Player-0 RandomHusPlayer
+START Player-1 Human
+PIT 0 18

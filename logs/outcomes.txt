@@ -1,0 +1,12 @@
+4,xxxxxxxxx,xxxxxxxxx,1,xxxxxxxxx,63,game00004.log,
+23,Human,260531701,GAMEOVER USER CANCEL UNDECIDED,NOBODY,4,game00023.log,USER CANCEL
+24,Human,RandomHusPlayer,1,RandomHusPlayer,16,game00024.log,
+25,Human,RandomHusPlayer,0,Human,37,game00025.log,
+29,260531701,RandomHusPlayer,1,RandomHusPlayer,20,game00029.log,
+30,260531701,RandomHusPlayer,1,RandomHusPlayer,38,game00030.log,
+31,260531701,RandomHusPlayer,1,RandomHusPlayer,90,game00031.log,
+32,260531701,RandomHusPlayer,1,RandomHusPlayer,31,game00032.log,
+33,260531701,RandomHusPlayer,1,RandomHusPlayer,135,game00033.log,
+34,260531701,RandomHusPlayer,1,RandomHusPlayer,73,game00034.log,
+35,260531701,RandomHusPlayer,1,RandomHusPlayer,45,game00035.log,
+36,260531701,RandomHusPlayer,1,RandomHusPlayer,31,game00036.log,

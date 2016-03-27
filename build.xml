@@ -26,6 +26,14 @@
         </java>
     </target>
 
+    <!-- Run Client with RandomHusPlayer ======================================================== -->
+    <target name="randomPlayer" depends="compile">
+        <java classpath="${run.classpath}" classname="boardgame.Client" fork="true">
+            <arg value="hus.RandomHusPlayer"/>
+        </java>
+    </target>
+
+
     <!-- Run server ==================================================================== -->
     <target name="gui" depends="compile">
         <java classpath="${run.classpath}" classname="boardgame.Server" fork="true"/>
@@ -37,6 +45,7 @@
             <arg value="-ng"/>
         </java>
     </target>
+
 
     <!-- Run autoplay ====================================================== -->
     <!-- Can specify a different value for n_games by supplying -Dn_games=10 at command line -->

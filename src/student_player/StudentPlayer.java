@@ -15,7 +15,7 @@ public class StudentPlayer extends HusPlayer {
      * This is important, because this is what the code that runs the
      * competition uses to associate you with your agent.
      * The constructor should do nothing else. */
-    public StudentPlayer() { super("xxxxxxxxx"); }
+    public StudentPlayer() { super("260531701"); }
 
     /** This is the primary method that you need to implement.
      * The ``board_state`` object contains the current state of the game,
@@ -27,8 +27,12 @@ public class StudentPlayer extends HusPlayer {
         int[][] pits = board_state.getPits();
 
         // Use ``player_id`` and ``opponent_id`` to get my pits and opponent pits.
+
         int[] my_pits = pits[player_id];
         int[] op_pits = pits[opponent_id];
+        //the number associated with my_pit[0] is the number of rocks in that specific hole
+
+
 
         // Use code stored in ``mytools`` package.
         MyTools.getSomething();
@@ -37,9 +41,14 @@ public class StudentPlayer extends HusPlayer {
         ArrayList<HusMove> moves = board_state.getLegalMoves();
         HusMove move = moves.get(0);
 
+
         // We can see the effects of a move like this...
         HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
         cloned_board_state.move(move);
+
+        int a = cloned_board_state.getPits()[0][1];
+
+
 
         // But since this is a placeholder algorithm, we won't act on that information.
         return move;
