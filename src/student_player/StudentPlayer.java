@@ -39,13 +39,6 @@ public class StudentPlayer extends HusPlayer {
         HusMove move = null;
 
 
-        // Use code stored in ``mytools`` package.
-
-
-
-
-        //check my valid moves for capture
-
 
         // Get the legal moves for the current board state.
         ArrayList<HusMove> moves = board_state.getLegalMoves();
@@ -57,14 +50,29 @@ public class StudentPlayer extends HusPlayer {
             move = moves.get(0);
         }
         else if (board_state.getTurnNumber() == 1) {
-            move = (HusMove) board_state.getRandomMove();
+            move = moves.get(MyTools.randomLegalMove(moves.size()));
         }
         else {
 
+            //get the list of largest enemy columns
             List<PotentialOutCome> tm = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
+            //find the potential gain
             PotentialOutCome pg = MyTools.potentialOutCome(tm, my_pits, MyTools.Outcome.GAIN);
+            //get the list of my columns
             List<PotentialOutCome> tm_loss = MyTools.ColumnWithLargestSum(my_pits, MyTools.Outcome.LOSS);
+            //find the potential loss
             PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
+
+            if (pg != null) {
+                System.out.println("Potential Gain: "+ pg.rocks);
+            }
+
+            if (pl != null) {
+                System.out.println("Potential Loss: " + pl.rocks);
+            }
+
+
+
 
 
             if (pg != null && pl != null) {
@@ -73,45 +81,45 @@ public class StudentPlayer extends HusPlayer {
                 if (pg.rocks >= pl.rocks) {
                     //attack/ capture
                     move = new HusMove(pg.pitToMove, player_id);
-                    System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                    System.out.println("Attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
 
                 }
                 else {
                     //when potential loss > potential gain
-                    //defend
+                    //defend:
+                    //compare whether to move the inner row or outer row.
+                    //sumValue = 7, inner row is 2, outer row is 5, move the outer row
                     move = new HusMove(pl.pitToMove, player_id);
                     System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
                 }
 
             }
-            else if (pg != null && pl == null) {
+            else if (pg != null) {
                 //attack only
                 move = new HusMove(pg.pitToMove, player_id);
-                System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                System.out.println("only attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
             }
-            else if (pg == null && pl != null) {
+            else if (pl != null) {
                 //defend only
+                //move the inner row
                 move = new HusMove(pl.pitToMove, player_id);
-                System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
-            }
+                System.out.println("Only Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
 
+            }
             else {
                 //no gain no loss
                 System.out.println("Random Move");
-                move = (HusMove) board_state.getRandomMove();
+                move = moves.get(MyTools.randomLegalMove(moves.size()));
             }
             //check legal move
             if (board_state.isLegal(move)) {
                 System.out.println("Legal move");
                 return move;
             } else {
-
                 System.out.println("Not legal move");
-                move = (HusMove) board_state.getRandomMove();
+                move = moves.get(MyTools.randomLegalMove(moves.size()));
             }
         }
-
-
 
         // But since this is a placeholder algorithm, we won't act on that information.
         return move;
