@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="512ad0d9-a546-4a61-8736-9489aef46faf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/mytools/MyTools$Outcome.class" afterPath="$PROJECT_DIR$/bin/student_player/mytools/MyTools$Outcome.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/mytools/MyTools.class" afterPath="$PROJECT_DIR$/bin/student_player/mytools/MyTools.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" afterPath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/mytools/MyTools.java" afterPath="$PROJECT_DIR$/src/student_player/mytools/MyTools.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" afterPath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/outcomes.txt" afterPath="$PROJECT_DIR$/logs/outcomes.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GameAgent.iws" />
@@ -46,8 +42,8 @@
       <file leaf-file-name="MyTools.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7011686">
-              <caret line="140" column="40" selection-start-line="140" selection-start-column="40" selection-end-line="140" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.75376886">
+              <caret line="142" column="12" selection-start-line="142" selection-start-column="12" selection-end-line="142" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#583#601#0" expanded="true" />
@@ -606,12 +602,12 @@
       <workItem from="1459030603499" duration="446000" />
       <workItem from="1459045940341" duration="5644000" />
       <workItem from="1459115746320" duration="19336000" />
-      <workItem from="1459139706746" duration="13745000" />
+      <workItem from="1459139706746" duration="14622000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42197000" />
+    <option name="totallyTimeSpent" value="43074000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="104" y="22" width="1272" height="717" extended-state="0" />
@@ -1089,8 +1085,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7011686">
-          <caret line="140" column="40" selection-start-line="140" selection-start-column="40" selection-end-line="140" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.75376886">
+          <caret line="142" column="12" selection-start-line="142" selection-start-column="12" selection-end-line="142" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#583#601#0" expanded="true" />

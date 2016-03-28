@@ -135,17 +135,17 @@ public class MyTools extends StudentPlayer{
             int pitToMove = queue.get(0).pitToMove;
             int largestSum = queue.get(0).rocks;
 
-            for (int i = 1; i < queue.size(); i++) {
+            for (int i = 0; i < queue.size(); i++){
                 if (largestSum == queue.get(i).rocks && queue.get(i).pitToMove > pitToMove) {
-
                     return queue.get(i);
                 }
             }
+            
+            return queue.get(0);
         }
 
 
-
-
+        //return the potential loss
         return PotentialOutCome;
 
     }
