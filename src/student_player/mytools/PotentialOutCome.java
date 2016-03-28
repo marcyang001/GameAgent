@@ -10,8 +10,8 @@ package student_player.mytools;
  */
 public class PotentialOutCome {
 
-    public int rocks = 0;
-    public int pitToMove = -1;
+    public int rocks;
+    public int pitToMove;
 
 
     public PotentialOutCome(int pitToMove, int rocks) {

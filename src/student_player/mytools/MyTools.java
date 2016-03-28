@@ -26,7 +26,7 @@ public class MyTools extends StudentPlayer{
 
 
 
-        List<PotentialOutCome> tm = new ArrayList<>();
+        List<PotentialOutCome> tm = new ArrayList<PotentialOutCome>();
 
 
         PotentialOutCome po = null;
@@ -80,38 +80,44 @@ public class MyTools extends StudentPlayer{
             int sumValue = largestPits.get(i).rocks;
             //map enemy pit index to my corresponding pit index
 
-            //the given pit is enemy pit and you map to my pit
-            // if the given pit is my pit, then you map to the enemy pit
+            //the given pit is enemy pit and you map to my pit (GAIN)
+            // if the given pit is my pit, then you map to the enemy pit (LOSS)
             int mapping_pit = (the_pits.length - 1 - given_pit) + the_pits.length / 2;
 
-            System.out.println("sumValue: " + sumValue);
+            System.out.println("sumValue: " + sumValue+ " " + result);
             //back track 10 pits and find the one that leads to capture this pit
+            innerloop:
             for (int j = 2; j <= 11; j++) {
                 int tempPit = mapping_pit - j;
 
-                System.out.println("my pit: " + tempPit);
+                System.out.println("my pit: " + tempPit + " " + result);
+                //if (result == Outcome.LOSS && the_pits[mapping_pit] == 0) {
+                    //if the corresponding mapping pit (enemy) has zero rock
+                    //you can skip to the next one right away
+                //    break innerloop;
+                //}
+                //else {
+                    //if the number of rocks is equal to the number of moves required to that pit
+                    if (the_pits[tempPit] == j && the_pits[mapping_pit] != 0) {
 
-                //if the number of rocks is equal to the number of moves required to that pit
-                if (the_pits[tempPit] == j) {
+                        //System.out.println("THERE IS A POSSIBLE CAPTURE");
+                        if (result == Outcome.GAIN) {
+                            //potential gain is the largest sum of that column
+                            potOut = sumValue;
+                            PotentialOutCome = new PotentialOutCome(tempPit, potOut);
+                            break outerloop;
+                        } else if (result == Outcome.LOSS) {
 
-                    //System.out.println("THERE IS A POSSIBLE CAPTURE");
-                    if (result == Outcome.GAIN) {
-                        //potential gain is the largest sum of that column
-                        potOut = sumValue;
-                        PotentialOutCome = new PotentialOutCome(tempPit, potOut);
-                        break outerloop;
+                            //System.out.println("Defend the potential loss: " + given_pit);
+                            potOut = sumValue;
+                            //move this pit if you want defend the potential loss
+                            PotentialOutCome = new PotentialOutCome(given_pit, potOut);
+                            break outerloop;
+                        }
+
+
                     }
-                    else if (result == Outcome.LOSS){
-
-                        //System.out.println("Defend the potential loss: " + given_pit);
-                        potOut = sumValue;
-                        //move this pit if you want defend the potential loss
-                        PotentialOutCome = new PotentialOutCome(given_pit, potOut);
-                        break outerloop;
-                    }
-
-
-                }
+                //}
             }
 
 

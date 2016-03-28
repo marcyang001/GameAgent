@@ -52,40 +52,65 @@ public class StudentPlayer extends HusPlayer {
 
 
         //first move => get the greatest relay
+        //randomly choose the first and second move
         if (board_state.getTurnNumber() == 0) {
             move = moves.get(0);
         }
+        else if (board_state.getTurnNumber() == 1) {
+            move = (HusMove) board_state.getRandomMove();
+        }
         else {
-
-            System.out.println("FIRST PLAYER ID: " + board_state.firstPlayer());
 
             List<PotentialOutCome> tm = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
             PotentialOutCome pg = MyTools.potentialOutCome(tm, my_pits, MyTools.Outcome.GAIN);
-            //TreeMap tm_loss = MyTools.ColumnWithLargestSum(my_pits, MyTools.Outcome.LOSS);
-            //PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
+            List<PotentialOutCome> tm_loss = MyTools.ColumnWithLargestSum(my_pits, MyTools.Outcome.LOSS);
+            PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
 
 
-            if (pg != null) {
-                move = new HusMove(pg.pitToMove, player_id);
-                System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+            if (pg != null && pl != null) {
 
+                //when potential gain >= potential loss
+                if (pg.rocks >= pl.rocks) {
+                    //attack/ capture
+                    move = new HusMove(pg.pitToMove, player_id);
+                    System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
 
-                if (board_state.isLegal(move)) {
-                    System.out.println("Legal move");
-                    return move;
                 }
                 else {
-
-                    System.out.println("Not legal move");
-                    move = (HusMove) board_state.getRandomMove();
+                    //when potential loss > potential gain
+                    //defend
+                    move = new HusMove(pl.pitToMove, player_id);
+                    System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
                 }
+
             }
+            else if (pg != null && pl == null) {
+                //attack only
+                move = new HusMove(pg.pitToMove, player_id);
+                System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+            }
+            else if (pg == null && pl != null) {
+                //defend only
+                move = new HusMove(pl.pitToMove, player_id);
+                System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+            }
+
             else {
+                //no gain no loss
                 System.out.println("Random Move");
                 move = (HusMove) board_state.getRandomMove();
             }
+            //check legal move
+            if (board_state.isLegal(move)) {
+                System.out.println("Legal move");
+                return move;
+            } else {
 
+                System.out.println("Not legal move");
+                move = (HusMove) board_state.getRandomMove();
+            }
         }
+
 
 
         // But since this is a placeholder algorithm, we won't act on that information.

@@ -27,7 +27,7 @@
     </target>
 
     <!-- Run Client with RandomHusPlayer ======================================================== -->
-    <target name="randomPlayer" depends="compile">
+    <target name="randomplayer" depends="compile">
         <java classpath="${run.classpath}" classname="boardgame.Client" fork="true">
             <arg value="hus.RandomHusPlayer"/>
         </java>
