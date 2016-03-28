@@ -1,11 +1,11 @@
 package hus;
 
-import hus.HusBoardState;
-import hus.HusPlayer;
-import hus.HusMove;
+import student_player.mytools.MyTools;
+import student_player.mytools.PotentialOutCome;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TreeMap;
 
 /** A random Hus player. */
 public class RandomHusPlayer extends HusPlayer {
@@ -20,5 +20,6 @@ public class RandomHusPlayer extends HusPlayer {
         ArrayList<HusMove> moves = board_state.getLegalMoves();
         HusMove move = moves.get(rand.nextInt(moves.size()));
         return move;
+
     }
 }

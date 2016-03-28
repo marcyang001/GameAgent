@@ -25,6 +25,7 @@ public abstract class HusPlayer extends Player {
     {
         // Cast the arguments to the objects we want to work with.
         HusBoardState board_state = (HusBoardState) bs;
+
         return this.chooseMove(board_state);
     }
 

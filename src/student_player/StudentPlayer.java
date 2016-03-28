@@ -5,10 +5,12 @@ import hus.HusPlayer;
 import hus.HusMove;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 import student_player.mytools.MyTools;
-import student_player.mytools.PotentialAttack;
+import student_player.mytools.PotentialOutCome;
+import student_player.mytools.PotentialOutCome;
 
 /** A Hus player submitted by a student. */
 public class StudentPlayer extends HusPlayer {
@@ -50,23 +52,37 @@ public class StudentPlayer extends HusPlayer {
 
 
         //first move => get the greatest relay
-        if (board_state.getTurnNumber() == 0 || board_state.getTurnNumber() == 1) {
-             move = moves.get(0);
+        if (board_state.getTurnNumber() == 0) {
+            move = moves.get(0);
         }
         else {
 
-            TreeMap tm = MyTools.ColumnWithLargestSum(op_pits);
+            System.out.println("FIRST PLAYER ID: " + board_state.firstPlayer());
 
-            PotentialAttack pg = MyTools.PotentialGain(tm, my_pits);
+            List<PotentialOutCome> tm = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
+            PotentialOutCome pg = MyTools.potentialOutCome(tm, my_pits, MyTools.Outcome.GAIN);
+            //TreeMap tm_loss = MyTools.ColumnWithLargestSum(my_pits, MyTools.Outcome.LOSS);
+            //PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
+
+
             if (pg != null) {
-                move = new HusMove(pg.pitToMove);
+                move = new HusMove(pg.pitToMove, player_id);
+                System.out.println("TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+
 
                 if (board_state.isLegal(move)) {
+                    System.out.println("Legal move");
                     return move;
+                }
+                else {
+
+                    System.out.println("Not legal move");
+                    move = (HusMove) board_state.getRandomMove();
                 }
             }
             else {
-                move = moves.get(0);
+                System.out.println("Random Move");
+                move = (HusMove) board_state.getRandomMove();
             }
 
         }
