@@ -76,6 +76,8 @@ public class HusMove extends Move{
         return move_type;
     }
 
+
+    //get the pit number associated to that move
     public int getPit() {
         return pit;
     }

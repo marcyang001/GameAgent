@@ -5,8 +5,10 @@ import hus.HusPlayer;
 import hus.HusMove;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 import student_player.mytools.MyTools;
+import student_player.mytools.PotentialAttack;
 
 /** A Hus player submitted by a student. */
 public class StudentPlayer extends HusPlayer {
@@ -32,25 +34,50 @@ public class StudentPlayer extends HusPlayer {
         int[] op_pits = pits[opponent_id];
         //the number associated with my_pit[0] is the number of rocks in that specific hole
 
+        HusMove move = null;
 
 
         // Use code stored in ``mytools`` package.
-        MyTools.getSomething();
+
+
+
+
+        //check my valid moves for capture
+
 
         // Get the legal moves for the current board state.
         ArrayList<HusMove> moves = board_state.getLegalMoves();
-        HusMove move = moves.get(0);
 
 
-        // We can see the effects of a move like this...
-        HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
-        cloned_board_state.move(move);
+        //first move => get the greatest relay
+        if (board_state.getTurnNumber() == 0 || board_state.getTurnNumber() == 1) {
+             move = moves.get(0);
+        }
+        else {
 
-        int a = cloned_board_state.getPits()[0][1];
+            TreeMap tm = MyTools.ColumnWithLargestSum(op_pits);
 
+            PotentialAttack pg = MyTools.PotentialGain(tm, my_pits);
+            if (pg != null) {
+                move = new HusMove(pg.pitToMove);
+
+                if (board_state.isLegal(move)) {
+                    return move;
+                }
+            }
+            else {
+                move = moves.get(0);
+            }
+
+        }
 
 
         // But since this is a placeholder algorithm, we won't act on that information.
         return move;
     }
+    // We can see the effects of a move like this...
+    //HusBoardState cloned_board_state = (HusBoardState) board_state.clone();
+    //cloned_board_state.move(move);
+
+
 }
