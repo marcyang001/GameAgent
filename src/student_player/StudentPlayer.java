@@ -90,7 +90,7 @@ public class StudentPlayer extends HusPlayer {
                     //compare whether to move the inner row or outer row.
                     //sumValue = 7, inner row is 2, outer row is 5, move the outer row
                     move = new HusMove(pl.pitToMove, player_id);
-                    System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                    System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pl.pitToMove);
                 }
 
             }
@@ -103,7 +103,7 @@ public class StudentPlayer extends HusPlayer {
                 //defend only
                 //move the inner row
                 move = new HusMove(pl.pitToMove, player_id);
-                System.out.println("Only Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                System.out.println("Only Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pl.pitToMove);
 
             }
             else {

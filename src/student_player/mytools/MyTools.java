@@ -85,6 +85,10 @@ public class MyTools extends StudentPlayer{
 
             int given_pit = largestPits.get(i).pitToMove;
 
+            if (given_pit > 31) {
+                System.out.println("null pointer exception!!!!!!");
+            }
+
             int sumValue = largestPits.get(i).rocks;
             //map enemy pit index to my corresponding pit index
 
@@ -126,7 +130,6 @@ public class MyTools extends StudentPlayer{
                 }
             }
 
-
         }// end looping all the largest sum sets
 
         if (result == Outcome.GAIN && queue.size() != 0) {
@@ -140,7 +143,7 @@ public class MyTools extends StudentPlayer{
                     return queue.get(i);
                 }
             }
-            
+
             return queue.get(0);
         }
 
