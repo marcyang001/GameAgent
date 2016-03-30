@@ -71,10 +71,6 @@ public class StudentPlayer extends HusPlayer {
                 System.out.println("Potential Loss: " + pl.rocks);
             }
 
-
-
-
-
             if (pg != null && pl != null) {
 
                 //when potential gain >= potential loss
