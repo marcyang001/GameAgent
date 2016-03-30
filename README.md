@@ -5,6 +5,7 @@ Find the game rules at http://mancala.wikia.com/wiki/Hus
 
 
 To launch game server (without GUI):
+	
 	$ant server
 
 To launch GUI: 
@@ -16,13 +17,16 @@ Click on the GUI whether you want to launch the human player, student_player (sm
 You can also launch the players via terminal.
 
 To launch student player (smart player): 
+	
 	$ ant student
 
 To launch human player:
+	
 	$ ant gui 
 
 Click on "Launch" in the GUI
 
 To launch random player: 
+	
 	$ ant randomplayer
 
