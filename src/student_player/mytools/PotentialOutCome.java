@@ -6,7 +6,7 @@ package student_player.mytools;
  * This class stores the potential move for gains and losses.
  * It contains:
  *         the pit number that should move and
- *         the potential gain /capture of opponent rocks
+ *         the potential gain /capture of opponent rocks or potential loss of my rocks
  */
 public class PotentialOutCome {
 

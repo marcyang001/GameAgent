@@ -154,6 +154,25 @@ public class MyTools extends StudentPlayer{
     }
 
 
+
+    public static int getMyTotalPit(int[] mypit) {
+
+        int totalPit = 0;
+        for (int i = 0; i < mypit.length; i++) {
+            totalPit = totalPit + mypit[i];
+        }
+        return totalPit;
+    }
+
+
+    public static int totalNumberOfRocks() {
+
+        return 48 * 2;
+    }
+
+
+
+
     /**
      *
      * Generate a random legal move
