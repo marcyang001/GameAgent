@@ -214,7 +214,7 @@ public class MyTools extends StudentPlayer{
                         PotentialOutCome = new PotentialOutCome(given_pit, potOut);
                         potentialMoves.add(PotentialOutCome);
 
-                        break outerloop;
+                        //break outerloop;
                     }
 
 
