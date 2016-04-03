@@ -60,16 +60,19 @@ public class StudentPlayer extends HusPlayer {
 
                     private volatile ArrayList<PotentialTwoStep> pg_list = new ArrayList<PotentialTwoStep>();
                     private volatile PotentialOutCome second_pg;
-                    //private HusBoardState cloned_board_state;
+                    ArrayList<PotentialOutCome> potentialMoves;
 
+                    public Pot_Gain(ArrayList<PotentialOutCome> pg) {
+                        this.potentialMoves = pg;
+                    }
 
                     @Override
                     public void run() {
 
                         //get the list of largest enemy columns
-                        List<PotentialOutCome> tm_largest = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
+                        //List<PotentialOutCome> tm_largest = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
                         //find the potential gain of the current step
-                        ArrayList<PotentialOutCome> potentialMoves = MyTools.potentialMoves(tm_largest, my_pits, MyTools.Outcome.GAIN);
+                        //ArrayList<PotentialOutCome> potentialMoves = MyTools.potentialMoves(tm_largest, my_pits, MyTools.Outcome.GAIN);
 
                         if (potentialMoves.size() > 0) {
                             //assignment temporarily the move with most gain
@@ -142,7 +145,7 @@ public class StudentPlayer extends HusPlayer {
                 //get the list of largest enemy columns
                 List<PotentialOutCome> tm = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
                 //find the potential gain
-                PotentialOutCome pg = MyTools.potentialOutCome(tm, my_pits, MyTools.Outcome.GAIN);
+                ArrayList<PotentialOutCome> pg = MyTools.potentialMoves(tm, my_pits, MyTools.Outcome.GAIN);
 
 
                 //main thread is responsible for calculating the potential loss
@@ -151,35 +154,44 @@ public class StudentPlayer extends HusPlayer {
                 //find the potential loss
                 PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
 
-                Pot_Gain t_gain = new Pot_Gain();
-                Thread cal_gain = new Thread(t_gain);
-                cal_gain.start();
 
-                try {
-                    cal_gain.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                Pot_Gain t_gain = null;
+                if (pg.size() > 0) {
+                    //create a thread to calculate potential gain of two step ahead
+                    t_gain = new Pot_Gain(pg);
+                    Thread cal_gain = new Thread(t_gain);
+                    cal_gain.start();
+
+                    try {
+                        cal_gain.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
 
 
 
-                if (pl != null) {
-                    System.out.println("Potential Loss: " + pl.rocks);
-                }
+               // if (pl != null) {
+               //     System.out.println("Potential Loss: " + pl.rocks);
+               // }
 
-                if (pg != null && pl != null) {
+                if (pg.size() > 0 && pl != null) {
 
                     //when potential gain >= potential loss
-                    if (pg.rocks >= pl.rocks) {
+                    if (pg.get(0).rocks >= pl.rocks) {
 
 
+                        int pit_to_play = pg.get(0).rocks;
 
-                        PotentialOutCome pg_two = t_gain.getPg();
-                        System.out.println("One move gain: " + pg.pitToMove + "Second step gain: " + pg_two.pitToMove);
+                        if (t_gain != null) {
+                            pit_to_play = t_gain.getPg().pitToMove;
+                        }
+
+                        //System.out.println("One move gain: " + pg.get(0).pitToMove + "Second step gain: " + pg_two.pitToMove);
                         //attack/ capture
-                        move = new HusMove(pg_two.pitToMove, player_id);
+                        move = new HusMove(pit_to_play, player_id);
 
-                        System.out.println("Attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                        System.out.println("Attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pit_to_play);
 
 
                     } else {
@@ -191,14 +203,16 @@ public class StudentPlayer extends HusPlayer {
                         System.out.println("Defend TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pl.pitToMove);
                     }
 
-                } else if (pg != null) {
+                } else if (pg.size() > 0) {
                     //attack only
-                    PotentialOutCome pg_two = t_gain.getPg();
-
+                    int pit_to_play = pg.get(0).rocks;
+                    if (t_gain != null) {
+                        pit_to_play = t_gain.getPg().pitToMove;
+                    }
                     //attack/ capture
-                    move = new HusMove(pg_two.pitToMove, player_id);
+                    move = new HusMove(pit_to_play, player_id);
                     //move = new HusMove(pg.pitToMove, player_id);
-                    System.out.println("only attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                    System.out.println("only attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.get(0).pitToMove);
                 } else if (pl != null) {
                     //defend only
                     //move the inner row
