@@ -13,11 +13,28 @@ public class PotentialOutCome {
     public int rocks;
     public int pitToMove;
 
+    public int enemy_frontEmptyPit;
+    public int my_frontEmptyPit;
+
+
 
     public PotentialOutCome(int pitToMove, int rocks) {
         this.pitToMove = pitToMove;
         this.rocks = rocks;
     }
+
+    public PotentialOutCome(int[] pits) {
+
+        for (int i = 0; i < pits.length/2; i++) {
+
+        }
+
+
+    }
+
+
+
+
 
 
 }

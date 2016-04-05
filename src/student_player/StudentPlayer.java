@@ -8,7 +8,6 @@ import java.util.*;
 
 import student_player.mytools.MyTools;
 import student_player.mytools.PotentialOutCome;
-import student_player.mytools.PotentialOutCome;
 import student_player.mytools.PotentialTwoStep;
 
 /** A Hus player submitted by a student. */
@@ -28,7 +27,7 @@ public class StudentPlayer extends HusPlayer {
         // Get the contents of the pits so we can use it to make decisions.
         int[][] pits = board_state.getPits();
 
-        // Use ``player_id`` and ``opponent_id`` to get my pits and opponent pits.
+
         final HusBoardState f_board_state = (HusBoardState) board_state.clone();
         final int[] my_pits = pits[player_id];
         final int[] op_pits = pits[opponent_id];
@@ -43,6 +42,7 @@ public class StudentPlayer extends HusPlayer {
         // Get the legal moves for the current board state.
         ArrayList<HusMove> moves = board_state.getLegalMoves();
 
+        //System.out.println("Current enemy rock number: " + MyTools.getMyTotalRocks(op_pits));
 
         //first move => get the greatest relay
         //randomly choose the first and second move
@@ -51,9 +51,13 @@ public class StudentPlayer extends HusPlayer {
         }
         else {
             if (board_state.getTurnNumber() == 1) {
-                move = moves.get(MyTools.randomLegalMove(moves.size()));
-            } else {
+                List<PotentialOutCome> list_of_attacks = MyTools.ColumnWithLargestSum(my_pits, MyTools.Outcome.LOSS);
+                int whichMove = MyTools.randomLegalMove(list_of_attacks.size());
 
+                move = new HusMove(list_of_attacks.get(whichMove).pitToMove, player_id);
+
+
+            } else {
                 //create a new thread, which is responsible for the potential gain
 
                 class Pot_Gain implements Runnable {
@@ -73,6 +77,8 @@ public class StudentPlayer extends HusPlayer {
                         //List<PotentialOutCome> tm_largest = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
                         //find the potential gain of the current step
                         //ArrayList<PotentialOutCome> potentialMoves = MyTools.potentialMoves(tm_largest, my_pits, MyTools.Outcome.GAIN);
+
+
 
                         if (potentialMoves.size() > 0) {
                             //assignment temporarily the move with most gain
@@ -168,9 +174,7 @@ public class StudentPlayer extends HusPlayer {
                         e.printStackTrace();
                     }
                 }
-
-
-
+                
                // if (pl != null) {
                //     System.out.println("Potential Loss: " + pl.rocks);
                // }
@@ -182,17 +186,16 @@ public class StudentPlayer extends HusPlayer {
 
 
                         int pit_to_play = pg.get(0).rocks;
-
-                        if (t_gain != null) {
+                        double ratio = MyTools.myRockToOpRockRatio(my_pits, op_pits);
+                        if (t_gain != null && (ratio > 0.8 && ratio < 2.0)) {
+                            System.out.println("!!!!!use the changed value ");
                             pit_to_play = t_gain.getPg().pitToMove;
                         }
 
                         //System.out.println("One move gain: " + pg.get(0).pitToMove + "Second step gain: " + pg_two.pitToMove);
                         //attack/ capture
                         move = new HusMove(pit_to_play, player_id);
-
                         System.out.println("Attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pit_to_play);
-
 
                     } else {
                         //when potential loss > potential gain
@@ -206,12 +209,14 @@ public class StudentPlayer extends HusPlayer {
                 } else if (pg.size() > 0) {
                     //attack only
                     int pit_to_play = pg.get(0).rocks;
-                    if (t_gain != null) {
+                    double ratio = MyTools.myRockToOpRockRatio(my_pits, op_pits);
+                    if (t_gain != null && (ratio > 0.8 && ratio < 2.0)) {
+                        System.out.println("!!!!!use the changed value ");
                         pit_to_play = t_gain.getPg().pitToMove;
                     }
                     //attack/ capture
                     move = new HusMove(pit_to_play, player_id);
-                    //move = new HusMove(pg.pitToMove, player_id);
+
                     System.out.println("only attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.get(0).pitToMove);
                 } else if (pl != null) {
                     //defend only
@@ -221,9 +226,44 @@ public class StudentPlayer extends HusPlayer {
 
                 } else {
                     //no gain no loss
-                    System.out.println("Random Move");
-                    move = moves.get(MyTools.randomLegalMove(moves.size()));
+
                     //plan two steps ahead
+
+                    int tempMaxPit = -1;
+
+                    int nextPitToMove = -1;
+
+                    if (tm_loss.size()> 0) {
+
+                        for (int i = 0; i < tm_loss.size(); i++) {
+
+                            //System.out.print(tm_loss.get(i).pitToMove + " ");
+                            if (MyTools.mintTwoReplays(my_pits, tm_loss.get(i).pitToMove)) {
+
+                                if (tempMaxPit < my_pits[tm_loss.get(i).pitToMove]) {
+
+                                    nextPitToMove = tm_loss.get(i).pitToMove;
+                                    tempMaxPit = my_pits[tm_loss.get(i).pitToMove];
+                                }
+                            }
+                        }
+                        //System.out.println();
+                    }
+
+                    if (nextPitToMove != -1) {
+
+                        System.out.println("Choose pit " + nextPitToMove);
+                        move = new HusMove(nextPitToMove, player_id);
+
+                    }else {
+                        move = moves.get(MyTools.randomLegalMove(moves.size()));
+                    }
+
+
+
+                    System.out.println("Random Move");
+
+
 
                     // We can see the effects of a move like this...
                     //HusBoardState cloned_board_state = (HusBoardState) board_state.clone();

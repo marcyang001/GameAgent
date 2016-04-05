@@ -158,7 +158,7 @@ public class MyTools extends StudentPlayer{
      * @param largestPits => sorted list of enemy pits that contain the largest sum
      * @param the_pits => my current pits
      * @param result => type gain / loss
-     * @return gives the Potential_Attack, which contains which pit to move and its potential gain.
+     * @return gives the list of possible losses or possible gains.
      */
 
 
@@ -222,22 +222,7 @@ public class MyTools extends StudentPlayer{
             }
 
         }// end looping all the largest sum sets
-/*
-        if (result == Outcome.GAIN && queue.size() != 0) {
-            //if there are two similar pits one next to the other,
-            // favour the one in front
-            int pitToMove = queue.get(0).pitToMove;
-            int largestSum = queue.get(0).rocks;
 
-            for (int i = 0; i < queue.size(); i++){
-                if (largestSum == queue.get(i).rocks && queue.get(i).pitToMove > pitToMove) {
-                    return queue.get(i);
-                }
-            }
-
-            return queue.get(0);
-        }
-*/
 
         //return the potential loss
         return potentialMoves;
@@ -245,13 +230,61 @@ public class MyTools extends StudentPlayer{
     }
 
 
-    public static int getMyTotalPit(int[] mypit) {
+    /**check if the pit move will result at least two relays **/
 
-        int totalPit = 0;
-        for (int i = 0; i < mypit.length; i++) {
-            totalPit = totalPit + mypit[i];
+    public static boolean mintTwoReplays(int[] pits, int startPit) {
+        boolean status = false;
+
+        int endPit = pits[startPit] + startPit;
+        if (endPit <= 31) {
+
+            if (pits[endPit] != 0) {
+                status = true;
+            }
         }
-        return totalPit;
+        else {
+
+            // 31 - 29 = 2
+            // 12 - 2 -1
+            try {
+                endPit = pits[startPit] - (31 - startPit) - 1;
+                if (pits[endPit] != 0) {
+                    status = true;
+                }
+            }
+            catch(ArrayIndexOutOfBoundsException e) {
+                System.out.println("ARRAY OUT OF BOUNDS");
+            }
+        }
+
+        return status;
+    }
+
+
+    public static int getMyTotalRocks(int[] mypit) {
+
+        int totalRocks = 0;
+        for (int i = 0; i < mypit.length/2; i++) {
+            totalRocks = totalRocks + mypit[i] + mypit[mypit.length -1 - i];
+        }
+        return totalRocks;
+    }
+
+    public static double myRockToOpRockRatio(int[] mypit, int[] opPit) {
+
+
+        int my_totalRocks = 0;
+        int op_totalRocks = 0;
+        for (int i = 0; i < mypit.length/2; i++) {
+            my_totalRocks = my_totalRocks + mypit[i] + mypit[mypit.length -1 - i];
+            op_totalRocks = op_totalRocks + opPit[i] + opPit[opPit.length -1 - i];
+        }
+
+        double ratio = my_totalRocks / op_totalRocks;
+
+
+        return ratio;
+
     }
 
 
@@ -259,6 +292,7 @@ public class MyTools extends StudentPlayer{
 
         return 48 * 2;
     }
+
 
 
 
