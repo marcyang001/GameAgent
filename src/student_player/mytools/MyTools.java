@@ -74,9 +74,9 @@ public class MyTools extends StudentPlayer{
     public static PotentialOutCome potentialOutCome(List<PotentialOutCome> largestPits, int[]the_pits, Outcome result) {
 
 
-        PotentialOutCome PotentialOutCome = null;
+        PotentialOutCome PotentialOutCome = new PotentialOutCome(-1, Integer.MIN_VALUE);
         ArrayList<PotentialOutCome> queue = new ArrayList<PotentialOutCome>();
-        int potOut = 0;
+        int potOut;
         //Set set = largestPits.entrySet();
 
         outerloop:
@@ -260,6 +260,14 @@ public class MyTools extends StudentPlayer{
         return status;
     }
 
+    //public static int numRockCapture(int op_pits, ) {
+
+
+    //}
+
+
+
+
 
     public static int getMyTotalRocks(int[] mypit) {
 
@@ -285,12 +293,6 @@ public class MyTools extends StudentPlayer{
 
         return ratio;
 
-    }
-
-
-    public static int totalNumberOfRocks() {
-
-        return 48 * 2;
     }
 
 
