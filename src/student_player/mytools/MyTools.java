@@ -74,13 +74,13 @@ public class MyTools extends StudentPlayer{
     public static PotentialOutCome potentialOutCome(List<PotentialOutCome> largestPits, int[]the_pits, Outcome result) {
 
 
-        PotentialOutCome PotentialOutCome = new PotentialOutCome(-1, Integer.MIN_VALUE);
+        PotentialOutCome PotentialOutCome = null;
         ArrayList<PotentialOutCome> queue = new ArrayList<PotentialOutCome>();
         int potOut;
         //Set set = largestPits.entrySet();
 
         outerloop:
-        for (int i = 0; i <  largestPits.size(); i++) {
+        for (int i = 0; i < largestPits.size(); i++) {
 
 
             int given_pit = largestPits.get(i).pitToMove;
@@ -98,7 +98,6 @@ public class MyTools extends StudentPlayer{
 
             //System.out.println("sumValue: " + sumValue+ " " + result);
             //back track 10 pits and find the one that leads to capture this pit
-            innerloop:
             for (int j = 2; j <= 11; j++) {
                 int tempPit = mapping_pit - j;
 
@@ -106,7 +105,7 @@ public class MyTools extends StudentPlayer{
                 //if the number of rocks is equal to the number of moves required to that pit
                 if (the_pits[tempPit] == j && the_pits[mapping_pit] != 0) {
 
-                        //System.out.println("THERE IS A POSSIBLE CAPTURE");
+                    //System.out.println("THERE IS A POSSIBLE CAPTURE");
                     if (result == Outcome.GAIN) {
                         //potential gain is the largest sum of that column
                         potOut = sumValue;
@@ -145,6 +144,10 @@ public class MyTools extends StudentPlayer{
             }
 
             return queue.get(0);
+        }
+
+        if (PotentialOutCome == null) {
+            PotentialOutCome = new PotentialOutCome(-1, 0);
         }
 
         //return the potential loss
@@ -260,22 +263,35 @@ public class MyTools extends StudentPlayer{
         return status;
     }
 
-    //public static int numRockCapture(int op_pits, ) {
 
 
-    //}
+    public static int possibleCapture(int[] mypit, int[] oppit, int startPit) {
 
-
-
-
-
-    public static int getMyTotalRocks(int[] mypit) {
-
-        int totalRocks = 0;
-        for (int i = 0; i < mypit.length/2; i++) {
-            totalRocks = totalRocks + mypit[i] + mypit[mypit.length -1 - i];
+        int captureRocks = 0;
+        if (mypit[startPit] == 0) {
+            return captureRocks;
         }
-        return totalRocks;
+
+        int endPit = mypit[startPit] + startPit;
+        if (endPit > 31) {
+            endPit = mypit[startPit]+ startPit - 31 - 1;
+        }
+
+
+
+        if (endPit >=16 && endPit <= 31) {
+            if (mypit[endPit] != 0) {
+                //System.out.println("Exception!!!! ");
+                int mapping_pit = (oppit.length - 1 - endPit) + oppit.length / 2;
+
+                captureRocks = oppit[mapping_pit] + oppit[oppit.length-1 - mapping_pit];
+            }
+
+        }
+
+        //System.out.println("possible capture   " + captureRocks);
+
+        return captureRocks;
     }
 
     public static double myRockToOpRockRatio(int[] mypit, int[] opPit) {
@@ -288,7 +304,9 @@ public class MyTools extends StudentPlayer{
             op_totalRocks = op_totalRocks + opPit[i] + opPit[opPit.length -1 - i];
         }
 
-        double ratio = my_totalRocks / op_totalRocks;
+        //System.out.println("My total Rocks: " + my_totalRocks);
+        //System.out.println("Opponent total Rocks: " + op_totalRocks);
+        double ratio = (double)my_totalRocks / op_totalRocks;
 
 
         return ratio;
@@ -298,6 +316,15 @@ public class MyTools extends StudentPlayer{
 
 
 
+    public static int getTotalRocks(int[] pits) {
+
+        int my_totalRocks = 0;
+        for (int i = 0; i < pits.length/2; i++) {
+            my_totalRocks = my_totalRocks + pits[i] + pits[pits.length - 1 - i];
+        }
+
+        return my_totalRocks;
+    }
 
 
 

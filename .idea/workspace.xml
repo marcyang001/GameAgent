@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="512ad0d9-a546-4a61-8736-9489aef46faf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/student_player/mytools/Pot_Gain.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/student_player/mytools/Strategy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/mytools/MyTools.class" afterPath="$PROJECT_DIR$/bin/student_player/mytools/MyTools.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/mytools/Strategy.class" afterPath="$PROJECT_DIR$/bin/student_player/mytools/Strategy.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" afterPath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/mytools/MyTools.java" afterPath="$PROJECT_DIR$/src/student_player/mytools/MyTools.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/mytools/Strategy.java" afterPath="$PROJECT_DIR$/src/student_player/mytools/Strategy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" afterPath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/outcomes.txt" afterPath="$PROJECT_DIR$/logs/outcomes.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -35,8 +35,8 @@
       <file leaf-file-name="StudentPlayer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/student_player/StudentPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5541958">
-              <caret line="206" column="60" selection-start-line="206" selection-start-column="60" selection-end-line="206" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.39473686">
+              <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,10 +47,36 @@
       <file leaf-file-name="Strategy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Strategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="52" selection-start-line="64" selection-start-column="52" selection-end-line="64" selection-end-column="52" />
+            <state vertical-scroll-proportion="-19.444445">
+              <caret line="143" column="12" selection-start-line="143" selection-start-column="12" selection-end-line="143" selection-end-column="84" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyTools.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="6.6666665">
+              <caret line="82" column="28" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2402#2420#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HusMove.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hus/HusMove.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
+              <folding>
+                <element signature="e#1905#1906#0" expanded="true" />
+                <element signature="e#1931#1932#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -285,7 +311,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="isLe&#9;PSI&#9;JAVA://hus.HusBoard#isLegal&#10;turnNum&#9;PSI&#9;JAVA://hus.HusBoardState#turn_number&#10;Gameo&#9;PSI&#9;JAVA://boardgame.BoardState#gameOver&#10;ILLGAL MOVE&#9;null&#9;null&#10;enum&#9;PSI&#9;JAVA://java.lang.Enum&#10;Random&#9;FILE&#9;file:///Users/marcyang/Desktop/COMP424/GameAgent/src/hus/RandomHusPlayer.java&#10;legalMove&#9;PSI&#9;JAVA://hus.HusBoardState#getLegalMoves&#10;prettySt&#9;PSI&#9;JAVA://boardgame.Move#toPrettyString&#10;isInit&#9;PSI&#9;JAVA://boardgame.BoardState#isInitialized&#10;pit&#9;PSI&#9;JAVA://hus.HusMove#pit&#10;human&#9;PSI&#9;JAVA://boardgame.ServerGUI.HumanPlayer" />
+    <property name="SearchEverywhereHistoryKey" value="getPits&#9;PSI&#9;JAVA://hus.HusBoardState#getPits&#10;getPit&#9;PSI&#9;JAVA://hus.HusMove#getPit&#10;move&#9;PSI&#9;JAVA://hus.HusMove&#10;capture&#9;PSI&#9;JAVA://hus.HusBoardState#canCapture&#10;isLe&#9;PSI&#9;JAVA://hus.HusBoard#isLegal&#10;turnNum&#9;PSI&#9;JAVA://hus.HusBoardState#turn_number&#10;Gameo&#9;PSI&#9;JAVA://boardgame.BoardState#gameOver&#10;ILLGAL MOVE&#9;null&#9;null&#10;enum&#9;PSI&#9;JAVA://java.lang.Enum&#10;Random&#9;FILE&#9;file:///Users/marcyang/Desktop/COMP424/GameAgent/src/hus/RandomHusPlayer.java&#10;legalMove&#9;PSI&#9;JAVA://hus.HusBoardState#getLegalMoves&#10;prettySt&#9;PSI&#9;JAVA://boardgame.Move#toPrettyString&#10;isInit&#9;PSI&#9;JAVA://boardgame.BoardState#isInitialized&#10;pit&#9;PSI&#9;JAVA://hus.HusMove#pit&#10;human&#9;PSI&#9;JAVA://boardgame.ServerGUI.HumanPlayer" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
@@ -561,12 +587,12 @@
       <workItem from="1459646354893" duration="5641000" />
       <workItem from="1459824808867" duration="5394000" />
       <workItem from="1325376048430" duration="6000" />
-      <workItem from="1459905439674" duration="12786000" />
+      <workItem from="1459905439674" duration="34667000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85156000" />
+    <option name="totallyTimeSpent" value="107037000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="22" width="1272" height="717" extended-state="0" />
@@ -610,7 +636,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -689,7 +715,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2441#2459#0" expanded="true" />
+            <element signature="e#2402#2420#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -867,13 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hus/HusMove.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48951048">
@@ -951,18 +970,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hus/HusBoardState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="71.296295">
-          <caret line="43" column="57" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4354#4355#0" expanded="true" />
-            <element signature="e#4393#4394#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hus/HusPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2754591">
@@ -987,17 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.259259">
-          <caret line="76" column="72" selection-start-line="76" selection-start-column="72" selection-end-line="76" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2441#2459#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Pot_Gain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32554257">
@@ -1008,10 +1004,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Strategy.java">
+    <entry file="file://$PROJECT_DIR$/src/hus/HusMove.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="52" selection-start-line="64" selection-start-column="52" selection-end-line="64" selection-end-column="52" />
+          <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
+          <folding>
+            <element signature="e#1905#1906#0" expanded="true" />
+            <element signature="e#1931#1932#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hus/HusBoardState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.037037">
+          <caret line="145" column="19" selection-start-line="145" selection-start-column="19" selection-end-line="145" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4798#4799#0" expanded="true" />
+            <element signature="e#4826#4827#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="6.6666665">
+          <caret line="82" column="28" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2402#2420#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Strategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.444445">
+          <caret line="143" column="12" selection-start-line="143" selection-start-column="12" selection-end-line="143" selection-end-column="84" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1020,8 +1050,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student_player/StudentPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5541958">
-          <caret line="206" column="60" selection-start-line="206" selection-start-column="60" selection-end-line="206" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.39473686">
+          <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
