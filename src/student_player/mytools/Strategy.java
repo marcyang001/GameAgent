@@ -36,9 +36,9 @@ public class Strategy {
     }
 
     /**
-     * Min-max algorithm with heuristic function: //heuristic function for minimax = totalpits + current largest capture
+     * Alpha beta prunning algorithm with heuristic function: //heuristic function for minimax = totalpits + current largest capture
      *                                                      + # movable pits after the move - # of unmovable pits
-     * This Min max is referenced from the pseudo code in wikipedia
+     * The pseudo code og alpha-beta pruning is referenced from the pseudo code in wikipedia
      * @param move
      * @param depth
      * @param maximizingPlayer
@@ -75,13 +75,13 @@ public class Strategy {
 
         if (maximizingPlayer) {
 
-            List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
+            //List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
 
             //largest number of rocks that I can capture with that move
-            PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
+            //PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
 
             int bestValue = getTotalRocks(myPits, PitType.ALL)
-                    + gainoutcome.rocks
+                    + rocksCapturedOrNot(opPits, myPits, PitType.CAPTURED)
                     + numOfPitsLeft(myPits, PitType.MOVABLE)
                     - numOfPitsLeft(myPits, PitType.UNMOVABLE);
 
@@ -99,11 +99,12 @@ public class Strategy {
 
         } else {
 
-            List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
+            //List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
             //largest number of rocks that I can capture with that move
-            PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
+            //PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
 
-            int bestValue = getTotalRocks(myPits, PitType.ALL) - loss_outcome.rocks
+            int bestValue = getTotalRocks(myPits, PitType.ALL)
+                    - rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED)
                     + numOfPitsLeft(myPits, PitType.MOVABLE)
                     - numOfPitsLeft(myPits, PitType.UNMOVABLE);
 
@@ -121,7 +122,7 @@ public class Strategy {
     }// end of minimax 1
 
     /**
-     * This is for defensive strategy --> if the ratio is be
+     * This is for defensive strategy --> if the ratio is between [0.6, 0.7)
      * @param move
      * @param depth
      * @param maximizingPlayer
@@ -129,7 +130,7 @@ public class Strategy {
      * @return
      */
 
-    public int minimaxDefensive(HusBoardState boardState,  HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
+    public int alphaBetaDefensive(HusBoardState boardState,  HusMove move, int depth, int alpha, int beta, boolean maximizingPlayer, int heuristicValue) {
 
         HusBoardState cloned_board_state = (HusBoardState) boardState.clone();
 
@@ -154,26 +155,36 @@ public class Strategy {
         if (maximizingPlayer) {
             // new heuristic function designed for defensive strategy
             int bestValue = getTotalRocks(myPits, PitType.ALL)
-                    + numOfPitsLeft(myPits, PitType.UNMOVABLE)
-                    + rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED);
+                    + rocksCapturedOrNot(myPits, opPits, PitType.UNCAPTURED)
+                    + numOfPitsLeft(myPits, PitType.MOVABLE)
+                    + getTotalRocks(myPits, PitType.BACK);
 
 
             for (int i = 0; i<legalMoves.size(); i++) {
 
-                int v = minimaxDefensive(cloned_board_state, legalMoves.get(i), depth - 1, false, bestValue);
-                bestValue = Math.max(bestValue, v);
+                bestValue = Math.max(bestValue, alphaBetaDefensive(cloned_board_state, legalMoves.get(i), depth - 1, alpha, beta, false, bestValue));
+                alpha = Math.max(alpha, bestValue);
+                //beta cut-off
+                if (beta <= alpha) {
+                    break;
+                }
             }
             return bestValue;
         }
         else {
-            int bestValue = getTotalRocks(myPits, PitType.ALL)
-                    - rocksCapturedOrNot(myPits, opPits, PitType.UNCAPTURED)
-                    - numOfPitsLeft(myPits, PitType.MOVABLE);
 
+            int bestValue = getTotalRocks(myPits, PitType.ALL)
+                    - numOfPitsLeft(myPits, PitType.UNMOVABLE)
+                    - rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED)
+                    - getTotalRocks(myPits,PitType.FRONT);
 
             for (int i = 0; i < legalMoves.size(); i++) {
-                int v = minimaxDefensive(cloned_board_state, legalMoves.get(i), depth-1, true, bestValue);
-                bestValue = Math.min(bestValue, v);
+                bestValue = Math.min(bestValue, alphaBetaDefensive(cloned_board_state, legalMoves.get(i), depth - 1, alpha, beta, true, bestValue));
+                beta = Math.min(beta, bestValue);
+                //alpha cut-off
+                if (beta <= alpha) {
+                    break;
+                }
             }
             return bestValue;
         }
