@@ -71,10 +71,11 @@ public class StudentPlayer extends HusPlayer {
                 int bestValue = -100000;
                 for (int i = 0; i < moves.size(); i++) {
 
+                    int alpha = Integer.MIN_VALUE;
+                    int beta = Integer.MAX_VALUE;
+
                     int possibleHeuristics = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
-
-
-                    int heuristic = strategy.minimax(board_state, moves.get(i),2,true,possibleHeuristics);
+                    int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), 2, alpha, beta,true, possibleHeuristics);
                     if (heuristic > bestValue) {
                         pitTOPlay = moves.get(i).getPit();
                         bestValue = heuristic;
@@ -126,12 +127,15 @@ public class StudentPlayer extends HusPlayer {
                         System.out.println("Depth is 8");
                     }
                     int bestValue = -100000;
+
                     for (int i = 0; i < moves.size(); i++) {
 
+                        int alpha = Integer.MIN_VALUE;
+                        int beta = Integer.MAX_VALUE;
                         int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
 
 
-                        int heuristic = strategy.minimax(board_state, moves.get(i), depth, true, possibleHeuristic);
+                        int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), depth, alpha, beta, true, possibleHeuristic);
 
                         if (heuristic > bestValue) {
                             pit_to_play = moves.get(i).getPit();

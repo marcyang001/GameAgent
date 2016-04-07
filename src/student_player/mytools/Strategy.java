@@ -47,7 +47,7 @@ public class Strategy {
      */
 
 
-    public int minimax(HusBoardState boardState, HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
+    public int alphabetaMinimax(HusBoardState boardState, HusMove move, int depth, int alpha, int beta, boolean maximizingPlayer, int heuristicValue) {
 
         //see the effect of each move
 
@@ -60,57 +60,65 @@ public class Strategy {
 
         ArrayList<HusMove> legalMoves = cloned_board_state.getLegalMoves();
 
-        //if (m_board_state.move(move)) {
-            if (depth == 0) {
-                return heuristicValue;
-            }
 
-            if (cloned_board_state.getWinner() == m_player_id) {
-                return Integer.MAX_VALUE;
-            }
+        if (depth == 0) {
+            return heuristicValue;
+        }
 
-            if (cloned_board_state.getWinner() == m_opponent_id) {
-                return Integer.MIN_VALUE;
-            }
+        if (cloned_board_state.getWinner() == m_player_id) {
+            return Integer.MAX_VALUE;
+        }
 
-            if (maximizingPlayer) {
+        if (cloned_board_state.getWinner() == m_opponent_id) {
+            return Integer.MIN_VALUE;
+        }
 
-                List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
+        if (maximizingPlayer) {
 
-                //largest number of rocks that I can capture with that move
-                PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
+            List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
 
-                int bestValue = getTotalRocks(myPits, PitType.ALL)
-                        + gainoutcome.rocks
-                        + numOfPitsLeft(myPits, PitType.MOVABLE)
-                        - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+            //largest number of rocks that I can capture with that move
+            PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
+
+            int bestValue = getTotalRocks(myPits, PitType.ALL)
+                    + gainoutcome.rocks
+                    + numOfPitsLeft(myPits, PitType.MOVABLE)
+                    - numOfPitsLeft(myPits, PitType.UNMOVABLE);
 
 
-                for (int i = 0; i < legalMoves.size(); i++) {
-                    int v = minimax(cloned_board_state, legalMoves.get(i), depth - 1, false, bestValue);
-                    bestValue = Math.max(v, bestValue);
+            for (int i = 0; i < legalMoves.size(); i++) {
+                bestValue = Math.max(bestValue, alphabetaMinimax(cloned_board_state, legalMoves.get(i), depth - 1, alpha, beta, false, bestValue));
+                alpha = Math.max(alpha, bestValue);
+                //beta cut-off
+                if (beta <= alpha) {
+                    break;
                 }
-
-                return bestValue;
-
-            } else {
-
-                List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
-                //largest number of rocks that I can capture with that move
-                PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
-
-                int bestValue = getTotalRocks(myPits, PitType.ALL) - loss_outcome.rocks
-                        + numOfPitsLeft(myPits, PitType.MOVABLE)
-                        - numOfPitsLeft(myPits, PitType.UNMOVABLE);
-
-                for (int i = 0; i < legalMoves.size(); i++) {
-                    int v = minimax(cloned_board_state, legalMoves.get(i), depth - 1, true, bestValue);
-                    bestValue = Math.min(bestValue, v);
-                }
-
-                return bestValue;
             }
-        }// end of minimax 1
+
+            return bestValue;
+
+        } else {
+
+            List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
+            //largest number of rocks that I can capture with that move
+            PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
+
+            int bestValue = getTotalRocks(myPits, PitType.ALL) - loss_outcome.rocks
+                    + numOfPitsLeft(myPits, PitType.MOVABLE)
+                    - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+
+            for (int i = 0; i < legalMoves.size(); i++) {
+
+                bestValue = Math.min(bestValue, alphabetaMinimax(cloned_board_state, legalMoves.get(i), depth - 1, alpha, beta, true, bestValue));
+                beta = Math.min(beta, bestValue);
+                //alpha cut-off
+                if (beta <= alpha) {
+                    break;
+                }
+            }
+            return bestValue;
+        }
+    }// end of minimax 1
 
     /**
      * This is for defensive strategy --> if the ratio is be
