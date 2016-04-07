@@ -14,7 +14,6 @@ import student_player.mytools.MyTools;
 public class Strategy {
 
 
-    HusBoardState m_board_state;
     int m_player_id;
     int m_opponent_id;
 
@@ -30,8 +29,8 @@ public class Strategy {
     }
 
 
-    public Strategy(HusBoardState board_state, int player_id, int opponent_id) {
-        this.m_board_state = (HusBoardState) board_state.clone();
+    public Strategy(int player_id, int opponent_id) {
+
         this.m_player_id = player_id;
         this.m_opponent_id = opponent_id;
     }
@@ -48,75 +47,70 @@ public class Strategy {
      */
 
 
-    public int minimax(HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
+    public int minimax(HusBoardState boardState, HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
+
+        //see the effect of each move
+
+        HusBoardState cloned_board_state = (HusBoardState) boardState.clone();
+        cloned_board_state.move(move);
 
 
+        int[] myPits = cloned_board_state.getPits()[m_player_id];
+        int[] opPits = cloned_board_state.getPits()[m_opponent_id];
 
-        try {
-            if (m_board_state.move(move)) {
-                if (depth == 0) {
-                    return heuristicValue;
-                }
+        ArrayList<HusMove> legalMoves = cloned_board_state.getLegalMoves();
 
-                if (m_board_state.getWinner() == m_player_id) {
-                    return Integer.MAX_VALUE;
-                }
-
-                if (m_board_state.getWinner() == m_opponent_id) {
-                    return Integer.MIN_VALUE;
-                }
-
-                if (maximizingPlayer) {
-                    int bestValue;
-
-
-                    List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(m_board_state.getPits()[m_opponent_id], MyTools.Outcome.GAIN);
-
-                    //largest number of rocks that I can capture with that move
-                    PotentialOutCome outcome = MyTools.potentialOutCome(lg_list, m_board_state.getPits()[m_player_id], MyTools.Outcome.GAIN);
-
-                    //heuristic function
-                    bestValue = getTotalRocks(m_board_state.getPits()[m_player_id], PitType.ALL) + outcome.rocks +
-                            numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.MOVABLE) -  numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.UNMOVABLE);
-
-
-                    for (int i = 0; i < m_board_state.getLegalMoves().size(); i++) {
-                        int v = minimax(m_board_state.getLegalMoves().get(i), depth - 1, false, bestValue);
-                        bestValue = Math.max(bestValue, v);
-                    }
-
-                    //System.out.println(" max best value " + bestValue);
-                    return bestValue;
-                } else {
-
-                    int bestValue;
-                    List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(m_board_state.getPits()[m_player_id], MyTools.Outcome.GAIN);
-
-                    //biggest loss that I can have with that move
-                    PotentialOutCome outcome = MyTools.potentialOutCome(loss_list, m_board_state.getPits()[m_opponent_id], MyTools.Outcome.GAIN);
-                    bestValue = getTotalRocks(m_board_state.getPits()[m_player_id], PitType.ALL) - outcome.rocks
-                            - numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.MOVABLE) + numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.UNMOVABLE);
-
-
-                    for (int i = 0; i < m_board_state.getLegalMoves().size(); i++) {
-                        int v = minimax(m_board_state.getLegalMoves().get(i), depth - 1, true, bestValue);
-                        bestValue = Math.min(bestValue, v);
-                    }
-                    //System.out.println("min best value " + bestValue);
-
-                    return bestValue;
-                }
-            } else {
-                return 0;
+        //if (m_board_state.move(move)) {
+            if (depth == 0) {
+                return heuristicValue;
             }
 
-        } catch (IllegalArgumentException e) {
+            if (cloned_board_state.getWinner() == m_player_id) {
+                return Integer.MAX_VALUE;
+            }
 
-            return 0;
+            if (cloned_board_state.getWinner() == m_opponent_id) {
+                return Integer.MIN_VALUE;
+            }
 
-        }
+            if (maximizingPlayer) {
 
-    }//end of minmax 1
+                List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
+
+                //largest number of rocks that I can capture with that move
+                PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
+
+                int bestValue = getTotalRocks(myPits, PitType.ALL)
+                        + gainoutcome.rocks
+                        + numOfPitsLeft(myPits, PitType.MOVABLE)
+                        - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+
+
+                for (int i = 0; i < legalMoves.size(); i++) {
+                    int v = minimax(cloned_board_state, legalMoves.get(i), depth - 1, false, bestValue);
+                    bestValue = Math.max(v, bestValue);
+                }
+
+                return bestValue;
+
+            } else {
+
+                List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
+                //largest number of rocks that I can capture with that move
+                PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
+
+                int bestValue = getTotalRocks(myPits, PitType.ALL) - loss_outcome.rocks
+                        + numOfPitsLeft(myPits, PitType.MOVABLE)
+                        - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+
+                for (int i = 0; i < legalMoves.size(); i++) {
+                    int v = minimax(cloned_board_state, legalMoves.get(i), depth - 1, true, bestValue);
+                    bestValue = Math.min(bestValue, v);
+                }
+
+                return bestValue;
+            }
+        }// end of minimax 1
 
     /**
      * This is for defensive strategy --> if the ratio is be
@@ -127,45 +121,50 @@ public class Strategy {
      * @return
      */
 
-    public int minimaxDefensive(HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
+    public int minimaxDefensive(HusBoardState boardState,  HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
 
-        int[] myPits = m_board_state.getPits()[m_player_id];
-        int[] opPits = m_board_state.getPits()[m_opponent_id];
+        HusBoardState cloned_board_state = (HusBoardState) boardState.clone();
 
-        ArrayList<HusMove> legalMoves = m_board_state.getLegalMoves();
+        cloned_board_state.move(move);
+
+        int[] myPits = cloned_board_state.getPits()[m_player_id];
+        int[] opPits = cloned_board_state.getPits()[m_opponent_id];
+
+        ArrayList<HusMove> legalMoves = cloned_board_state.getLegalMoves();
 
         if (depth == 0) {
             return heuristicValue;
         }
 
-        if (m_board_state.getWinner() == m_player_id) {
+        if (cloned_board_state.getWinner() == m_player_id) {
             return Integer.MAX_VALUE;
         }
 
-        if (m_board_state.getWinner() == m_opponent_id) {
+        if (cloned_board_state.getWinner() == m_opponent_id) {
             return Integer.MIN_VALUE;
         }
         if (maximizingPlayer) {
             // new heuristic function designed for defensive strategy
-            int bestValue = getTotalRocks(m_board_state.getPits()[m_player_id], PitType.ALL)
-                    + numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.UNMOVABLE)
+            int bestValue = getTotalRocks(myPits, PitType.ALL)
+                    + numOfPitsLeft(myPits, PitType.UNMOVABLE)
                     + rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED);
-            //+ numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.MOVABLE)
+
 
             for (int i = 0; i<legalMoves.size(); i++) {
-                int v = minimaxDefensive(legalMoves.get(i), depth - 1, false, bestValue);
+
+                int v = minimaxDefensive(cloned_board_state, legalMoves.get(i), depth - 1, false, bestValue);
                 bestValue = Math.max(bestValue, v);
             }
             return bestValue;
         }
         else {
-            int bestValue = getTotalRocks(m_board_state.getPits()[m_player_id], PitType.ALL)
+            int bestValue = getTotalRocks(myPits, PitType.ALL)
                     - rocksCapturedOrNot(myPits, opPits, PitType.UNCAPTURED)
-                    - numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.MOVABLE);
-                    //- numOfPitsLeft(m_board_state.getPits()[m_player_id], PitType.UNMOVABLE);
+                    - numOfPitsLeft(myPits, PitType.MOVABLE);
+
 
             for (int i = 0; i < legalMoves.size(); i++) {
-                int v = minimaxDefensive(legalMoves.get(i), depth-1, true, bestValue);
+                int v = minimaxDefensive(cloned_board_state, legalMoves.get(i), depth-1, true, bestValue);
                 bestValue = Math.min(bestValue, v);
             }
             return bestValue;

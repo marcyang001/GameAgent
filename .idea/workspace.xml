@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="512ad0d9-a546-4a61-8736-9489aef46faf" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/student_player/mytools/Pot_Gain.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/mytools/Strategy.class" afterPath="$PROJECT_DIR$/bin/student_player/mytools/Strategy.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" afterPath="$PROJECT_DIR$/bin/student_player/StudentPlayer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/mytools/Strategy.java" afterPath="$PROJECT_DIR$/src/student_player/mytools/Strategy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" afterPath="$PROJECT_DIR$/src/student_player/StudentPlayer.java" />
@@ -33,8 +33,8 @@
       <file leaf-file-name="StudentPlayer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/student_player/StudentPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.2894737">
-              <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.7604895">
+              <caret line="176" column="20" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,10 +45,25 @@
       <file leaf-file-name="Strategy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Strategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.11111">
-              <caret line="121" column="60" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="60" />
+            <state vertical-scroll-proportion="10.0">
+              <caret line="53" column="27" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HusBoardState.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/hus/HusBoardState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-28.88889">
+              <caret line="168" column="39" selection-start-line="168" selection-start-column="35" selection-end-line="168" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4798#4799#0" expanded="true" />
+                <element signature="e#4826#4827#0" expanded="true" />
+                <element signature="e#5099#5108#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,11 +72,10 @@
       <file leaf-file-name="MyTools.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.888889">
-              <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2402#2420#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,9 +162,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -289,6 +302,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -296,7 +310,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="getPits&#9;PSI&#9;JAVA://hus.HusBoardState#getPits&#10;getPit&#9;PSI&#9;JAVA://hus.HusMove#getPit&#10;move&#9;PSI&#9;JAVA://hus.HusMove&#10;capture&#9;PSI&#9;JAVA://hus.HusBoardState#canCapture&#10;isLe&#9;PSI&#9;JAVA://hus.HusBoard#isLegal&#10;turnNum&#9;PSI&#9;JAVA://hus.HusBoardState#turn_number&#10;Gameo&#9;PSI&#9;JAVA://boardgame.BoardState#gameOver&#10;ILLGAL MOVE&#9;null&#9;null&#10;enum&#9;PSI&#9;JAVA://java.lang.Enum&#10;Random&#9;FILE&#9;file:///Users/marcyang/Desktop/COMP424/GameAgent/src/hus/RandomHusPlayer.java&#10;legalMove&#9;PSI&#9;JAVA://hus.HusBoardState#getLegalMoves&#10;prettySt&#9;PSI&#9;JAVA://boardgame.Move#toPrettyString&#10;isInit&#9;PSI&#9;JAVA://boardgame.BoardState#isInitialized&#10;pit&#9;PSI&#9;JAVA://hus.HusMove#pit&#10;human&#9;PSI&#9;JAVA://boardgame.ServerGUI.HumanPlayer" />
+    <property name="SearchEverywhereHistoryKey" value="Clon&#9;PSI&#9;JAVA://java.lang.Cloneable&#10;getPits&#9;PSI&#9;JAVA://hus.HusBoardState#getPits&#10;getPit&#9;PSI&#9;JAVA://hus.HusMove#getPit&#10;move&#9;PSI&#9;JAVA://hus.HusMove&#10;capture&#9;PSI&#9;JAVA://hus.HusBoardState#canCapture&#10;isLe&#9;PSI&#9;JAVA://hus.HusBoard#isLegal&#10;turnNum&#9;PSI&#9;JAVA://hus.HusBoardState#turn_number&#10;Gameo&#9;PSI&#9;JAVA://boardgame.BoardState#gameOver&#10;ILLGAL MOVE&#9;null&#9;null&#10;enum&#9;PSI&#9;JAVA://java.lang.Enum&#10;Random&#9;FILE&#9;file:///Users/marcyang/Desktop/COMP424/GameAgent/src/hus/RandomHusPlayer.java&#10;legalMove&#9;PSI&#9;JAVA://hus.HusBoardState#getLegalMoves&#10;prettySt&#9;PSI&#9;JAVA://boardgame.Move#toPrettyString&#10;isInit&#9;PSI&#9;JAVA://boardgame.BoardState#isInitialized&#10;pit&#9;PSI&#9;JAVA://hus.HusMove#pit&#10;human&#9;PSI&#9;JAVA://boardgame.ServerGUI.HumanPlayer" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
@@ -572,12 +586,13 @@
       <workItem from="1459646354893" duration="5641000" />
       <workItem from="1459824808867" duration="5394000" />
       <workItem from="1325376048430" duration="6000" />
-      <workItem from="1459905439674" duration="36920000" />
+      <workItem from="1459905439674" duration="37037000" />
+      <workItem from="1460050256777" duration="5633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109290000" />
+    <option name="totallyTimeSpent" value="115040000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="22" width="1272" height="717" extended-state="0" />
@@ -590,7 +605,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -599,13 +613,14 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17235772" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34130782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -664,8 +679,8 @@
           <caret line="107" column="28" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4354#4355#0" expanded="true" />
-            <element signature="e#4393#4394#0" expanded="true" />
+            <element signature="e#4798#4799#0" expanded="true" />
+            <element signature="e#4826#4827#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -700,7 +715,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2402#2420#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -740,8 +754,8 @@
           <caret line="146" column="18" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4354#4355#0" expanded="true" />
-            <element signature="e#4393#4394#0" expanded="true" />
+            <element signature="e#4798#4799#0" expanded="true" />
+            <element signature="e#4826#4827#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -885,13 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/boardgame/BoardState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4006678">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logs/game00014.log">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -932,7 +939,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="53" selection-start-line="86" selection-start-column="53" selection-end-line="86" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,7 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2253757">
           <caret line="155" column="0" selection-start-line="155" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -990,33 +995,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hus/HusBoardState.java">
+    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.037037">
-          <caret line="145" column="19" selection-start-line="145" selection-start-column="19" selection-end-line="145" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="149" column="54" selection-start-line="149" selection-start-column="54" selection-end-line="149" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4798#4799#0" expanded="true" />
-            <element signature="e#4826#4827#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/student_player/mytools/MyTools.java">
+    <entry file="file://$PROJECT_DIR$/src/boardgame/BoardState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.888889">
-          <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.4006678">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/src.zip!/java/lang/Cloneable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72621036">
+          <caret line="52" column="17" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hus/HusBoardState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-28.88889">
+          <caret line="168" column="39" selection-start-line="168" selection-start-column="35" selection-end-line="168" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2402#2420#0" expanded="true" />
+            <element signature="e#4798#4799#0" expanded="true" />
+            <element signature="e#4826#4827#0" expanded="true" />
+            <element signature="e#5099#5108#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student_player/mytools/Strategy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.11111">
-          <caret line="121" column="60" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="60" />
+        <state vertical-scroll-proportion="10.0">
+          <caret line="53" column="27" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1025,8 +1046,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/student_player/StudentPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2894737">
-          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.7604895">
+          <caret line="176" column="20" selection-start-line="176" selection-start-column="20" selection-end-line="176" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

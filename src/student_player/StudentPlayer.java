@@ -45,8 +45,15 @@ public class StudentPlayer extends HusPlayer {
         // Get the legal moves for the current board state.
         ArrayList<HusMove> moves = board_state.getLegalMoves();
 
-        Strategy strategy = new Strategy(board_state, player_id, opponent_id);
 
+        /**
+         * this object is for min max strategy as well as defensive minmax 
+         */
+        Strategy strategy = new Strategy(player_id, opponent_id);
+
+        //HusBoardState clone_board = (HusBoardState) board_state.clone();
+
+        //strategy.minimaxDefensive(board_state, moves.get(0), 2, true, 0);
 
 
         //first move => get the greatest relay
@@ -58,17 +65,16 @@ public class StudentPlayer extends HusPlayer {
             //apply minmax when you already know a move of the opponent
             if (board_state.getTurnNumber() == 0) {
 
-                int pitTOPlay = MyTools.randomLegalMove(moves.size());
+                int pitTOPlay = moves.get(0).getPit();
                 System.out.println("random pit :" + pitTOPlay);
 
                 int bestValue = -100000;
                 for (int i = 0; i < moves.size(); i++) {
 
                     int possibleHeuristics = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
-                    
 
-                    int heuristic = strategy.minimax(moves.get(i),2,true,possibleHeuristics);
 
+                    int heuristic = strategy.minimax(board_state, moves.get(i),2,true,possibleHeuristics);
                     if (heuristic > bestValue) {
                         pitTOPlay = moves.get(i).getPit();
                         bestValue = heuristic;
@@ -86,7 +92,7 @@ public class StudentPlayer extends HusPlayer {
                 //get the list of largest enemy columns
                 List<PotentialOutCome> tm = MyTools.ColumnWithLargestSum(op_pits, MyTools.Outcome.GAIN);
                 //find the potential gain
-                ArrayList<PotentialOutCome> pg = MyTools.potentialMoves(tm, my_pits, MyTools.Outcome.GAIN);
+                PotentialOutCome pg = MyTools.potentialOutCome(tm, my_pits, MyTools.Outcome.GAIN);
 
 
                 //main thread is responsible for calculating the potential loss
@@ -107,31 +113,25 @@ public class StudentPlayer extends HusPlayer {
 
                 if ((ratio >= 0.7 && ratio <= 2.0)) {
                     System.out.println(" 0.8 <=RATIO <= 2.0");
-                    int pit_to_play = MyTools.randomLegalMove(moves.size());
-                    if (pg.size() > 0) {
-                        pit_to_play = pg.get(0).pitToMove;
-                    }
-                    else if (pl.pitToMove != -1){
-                        pit_to_play = pl.pitToMove;
-                    }
+                    int pit_to_play = moves.get(MyTools.randomLegalMove(moves.size())).getPit();
+
 
                     System.out.println("random pit :" + pit_to_play);
-
+                    int depth;
+                    if (board_state.getTurnNumber() < 30) {
+                        depth = 4;
+                    }
+                    else {
+                        depth = 8;
+                        System.out.println("Depth is 8");
+                    }
                     int bestValue = -100000;
                     for (int i = 0; i < moves.size(); i++) {
 
-
                         int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
 
-                        int depth;
-                        if (board_state.firstPlayer() != player_id) {
-                            depth = 2;
-                        }
-                        else {
-                            depth = 4;
-                        }
 
-                        int heuristic = strategy.minimax(moves.get(i), depth, true, possibleHeuristic);
+                        int heuristic = strategy.minimax(board_state, moves.get(i), depth, true, possibleHeuristic);
 
                         if (heuristic > bestValue) {
                             pit_to_play = moves.get(i).getPit();
@@ -151,12 +151,21 @@ public class StudentPlayer extends HusPlayer {
                     int pit_to_play = move.getPit();
 
                     //int possibleHeuristics = MyTools.getTotalRocks(my_pits);
-
+                    int depth;
+                    if (board_state.getTurnNumber() < 30) {
+                        depth = 8;
+                    }
+                    else if (board_state.getTurnNumber() >= 30 && board_state.getTurnNumber() <= 50) {
+                        depth = 6;
+                    }
+                    else {
+                        depth = 4;
+                    }
                     int bestValue = -100000;
                     //implement minmax with new heuristic function
                     for (int i = 0; i < moves.size(); i++) {
 
-                        int heuristics = strategy.minimaxDefensive(moves.get(i),4,false, 0);
+                        int heuristics = strategy.minimaxDefensive(board_state, moves.get(i),depth,false, 0);
 
                         //get the maximum value of heuristics from all the moves
                         if (heuristics > bestValue) {
@@ -179,13 +188,13 @@ public class StudentPlayer extends HusPlayer {
                     System.out.println("RATIO: " + ratio);
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
 
-                    if (pg.size() > 0 && pl.pitToMove != -1) {
+                    if (pg.pitToMove != 1 && pl.pitToMove != -1) {
 
                         //when potential gain >= potential loss
-                        if (pg.get(0).rocks >= pl.rocks) {
+                        if (pg.rocks >= pl.rocks) {
 
 
-                            int pit_to_play = pg.get(0).pitToMove;
+                            int pit_to_play = pg.pitToMove;
 
                             //attack/ capture
                             move = new HusMove(pit_to_play, player_id);
@@ -202,14 +211,15 @@ public class StudentPlayer extends HusPlayer {
 
                     }
 
-                    else if (pg.size() > 0) {
+                    else if (pg.pitToMove != -1 && pl.pitToMove == -1) {
                         //attack only
-                        int pit_to_play = pg.get(0).pitToMove;
+                        int pit_to_play = pg.pitToMove;
 
                         move = new HusMove(pit_to_play, player_id);
 
-                        System.out.println("ONLY attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.get(0).pitToMove);
-                    } else if (pl.pitToMove != -1) {
+                        System.out.println("ONLY attack TURN NUMBER: " + board_state.getTurnNumber() + "Pit #: " + pg.pitToMove);
+                    }
+                    else if (pl.pitToMove != -1) {
                         //defend only
                         //move the inner row
                         move = new HusMove(pl.pitToMove, player_id);
