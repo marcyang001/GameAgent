@@ -13,9 +13,6 @@ public class PotentialOutCome {
     public int rocks;
     public int pitToMove;
 
-    public int enemy_frontEmptyPit;
-    public int my_frontEmptyPit;
-
 
 
     public PotentialOutCome(int pitToMove, int rocks) {
