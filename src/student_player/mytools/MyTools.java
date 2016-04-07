@@ -98,7 +98,7 @@ public class MyTools extends StudentPlayer{
 
             //System.out.println("sumValue: " + sumValue+ " " + result);
             //back track 10 pits and find the one that leads to capture this pit
-            for (int j = 2; j <= 11; j++) {
+            for (int j = 2; j <= mapping_pit; j++) {
                 int tempPit = mapping_pit - j;
 
 

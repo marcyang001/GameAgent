@@ -112,7 +112,6 @@ public class StudentPlayer extends HusPlayer {
 
                     int bestValue = -100000;
                     for (int i = 0; i < moves.size(); i++) {
-
                         //System.out.println("Pit number of that move: " + moves.get(i).getPit());
 
                         int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
@@ -129,7 +128,32 @@ public class StudentPlayer extends HusPlayer {
                     System.out.println("Pit chosen by minimax: " + pit_to_play);
 
                 }
-                else if (ratio > 2.0) {
+                else if (ratio >= 0.6 && ratio < 0.7) {
+
+                    move = moves.get(MyTools.randomLegalMove(moves.size()));
+                    int pit_to_play = move.getPit();
+
+                    //int possibleHeuristics = MyTools.getTotalRocks(my_pits);
+
+                    int bestValue = -100000;
+                    //implement minmax with new heuristic function
+                    for (int i = 0; i < moves.size(); i++) {
+
+                        int heuristics = strategy.minimaxDefensive(moves.get(i),4,false, 0);
+
+                        //get the maximum value of heuristics from all the moves
+                        if (heuristics > bestValue) {
+                            pit_to_play = moves.get(i).getPit();
+                            //loop back and compare
+                            bestValue = heuristics;
+                        }
+                    }
+                    System.out.println("Defensive Min max!!!!! ");
+                    move = new HusMove(pit_to_play, player_id);
+
+                }
+
+                else {
                     System.out.println("RATIO: " + ratio);
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
 
@@ -155,6 +179,7 @@ public class StudentPlayer extends HusPlayer {
                         }
 
                     }
+
                     else if (pg.size() > 0) {
                         //attack only
                         int pit_to_play = pg.get(0).pitToMove;
@@ -199,32 +224,8 @@ public class StudentPlayer extends HusPlayer {
 
                     }
                 }
-                else if (ratio >= 0.6 && ratio < 0.7) {
 
-
-                    move = moves.get(MyTools.randomLegalMove(moves.size()));
-                    int pit_to_play = move.getPit();
-
-                    //int possibleHeuristics = MyTools.getTotalRocks(my_pits);
-
-                    int bestValue = -100000;
-                    //implement minmax with new heuristic function
-                    for (int i = 0; i < moves.size(); i++) {
-
-                        int heuristics = strategy.minimaxDefensive(moves.get(i),4,false, 0);
-
-                        //get the maximum value of heuristics from all the moves
-                        if (heuristics > bestValue) {
-                            pit_to_play = moves.get(i).getPit();
-                            //loop back and compare
-                            bestValue = heuristics;
-                        }
-                    }
-                    System.out.println("Defensive Min max!!!!! ");
-                    move = new HusMove(pit_to_play, player_id);
-
-                }
-
+                /*
                 //ratio < 0.6
                 else  {
                     System.out.println("small ratio: " + ratio);
@@ -262,7 +263,7 @@ public class StudentPlayer extends HusPlayer {
 
 
                 }
-
+                */
                 //check legal move just in case of error (testing purposes)
                 if (board_state.isLegal(move)) {
                     System.out.println("Legal move");
@@ -271,6 +272,7 @@ public class StudentPlayer extends HusPlayer {
                     System.out.println("Not legal move");
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
                 }
+
             }
         }
 
