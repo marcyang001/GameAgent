@@ -49,17 +49,14 @@ public class StudentPlayer extends HusPlayer {
 
 
 
-        //System.out.println("Current enemy rock number: " + MyTools.getMyTotalRocks(op_pits));
-
         //first move => get the greatest relay
         if (player_id == board_state.firstPlayer() && board_state.getTurnNumber() == 0) {
             move = moves.get(0);
         }
         else {
 
-            //apply minmax
+            //apply minmax when you already know a move of the opponent
             if (board_state.getTurnNumber() == 0) {
-                System.out.println("Turn 1 !!!!!!!!");
 
                 int pitTOPlay = MyTools.randomLegalMove(moves.size());
                 System.out.println("random pit :" + pitTOPlay);
@@ -68,7 +65,9 @@ public class StudentPlayer extends HusPlayer {
                 for (int i = 0; i < moves.size(); i++) {
 
                     int possibleHeuristics = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
-                    int heuristic = strategy.minimax(moves.get(i),8,true,possibleHeuristics);
+                    
+
+                    int heuristic = strategy.minimax(moves.get(i),2,true,possibleHeuristics);
 
                     if (heuristic > bestValue) {
                         pitTOPlay = moves.get(i).getPit();
@@ -96,7 +95,15 @@ public class StudentPlayer extends HusPlayer {
                 //find the potential loss
                 PotentialOutCome pl = MyTools.potentialOutCome(tm_loss, op_pits, MyTools.Outcome.LOSS);
 
+                /**
+                 * this ratio determines which strategy to use
+                 * this is the ratio of my rocks / opponent's rocks
+                 *
+                 */
+
+
                 double ratio = MyTools.myRockToOpRockRatio(my_pits, op_pits);
+
 
                 if ((ratio >= 0.7 && ratio <= 2.0)) {
                     System.out.println(" 0.8 <=RATIO <= 2.0");
@@ -112,11 +119,19 @@ public class StudentPlayer extends HusPlayer {
 
                     int bestValue = -100000;
                     for (int i = 0; i < moves.size(); i++) {
-                        //System.out.println("Pit number of that move: " + moves.get(i).getPit());
+
 
                         int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
-                        //int heuristic = 0;
-                        int heuristic = strategy.minimax(moves.get(i), 2, true, possibleHeuristic);
+
+                        int depth;
+                        if (board_state.firstPlayer() != player_id) {
+                            depth = 2;
+                        }
+                        else {
+                            depth = 4;
+                        }
+
+                        int heuristic = strategy.minimax(moves.get(i), depth, true, possibleHeuristic);
 
                         if (heuristic > bestValue) {
                             pit_to_play = moves.get(i).getPit();
@@ -128,6 +143,8 @@ public class StudentPlayer extends HusPlayer {
                     System.out.println("Pit chosen by minimax: " + pit_to_play);
 
                 }
+
+                // ratio of 36 / 60 at least
                 else if (ratio >= 0.6 && ratio < 0.7) {
 
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
@@ -153,7 +170,12 @@ public class StudentPlayer extends HusPlayer {
 
                 }
 
+                /**
+                 * when my player is dominating the random agent or he is losing so badly,
+                 * it is better to use the greedy method for the next best move
+                 */
                 else {
+
                     System.out.println("RATIO: " + ratio);
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
 
@@ -225,45 +247,6 @@ public class StudentPlayer extends HusPlayer {
                     }
                 }
 
-                /*
-                //ratio < 0.6
-                else  {
-                    System.out.println("small ratio: " + ratio);
-                    //defensive strategy
-                    move = moves.get(MyTools.randomLegalMove(moves.size()));
-
-                    int possibleHeuristics = MyTools.getTotalRocks(my_pits);
-
-                    int pit_to_play = move.getPit();
-                    if (pl.pitToMove != -1 && pg.size() > 0){
-                        if (pl.rocks <= pg.get(0).rocks) {
-                            pit_to_play = pg.get(0).pitToMove;
-                            possibleHeuristics += pg.get(0).rocks;
-                            move = new HusMove(pit_to_play, player_id);
-                        }
-                        else {
-                            pit_to_play = pl.pitToMove;
-                            possibleHeuristics -= pl.rocks;
-
-                            move = new HusMove(pit_to_play, player_id);
-                        }
-                    }
-                    else if (pl.pitToMove != -1) {
-
-                        pit_to_play = pl.pitToMove;
-                        possibleHeuristics -= pl.rocks;
-                        move = new HusMove(pit_to_play, player_id);
-
-                    }
-                    else if (pg.size() > 0) {
-                        pit_to_play = pg.get(0).pitToMove;
-                        possibleHeuristics += pg.get(0).rocks;
-                        move = new HusMove(pit_to_play, player_id);
-                    }
-
-
-                }
-                */
                 //check legal move just in case of error (testing purposes)
                 if (board_state.isLegal(move)) {
                     System.out.println("Legal move");

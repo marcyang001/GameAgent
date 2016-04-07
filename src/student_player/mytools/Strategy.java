@@ -118,6 +118,15 @@ public class Strategy {
 
     }//end of minmax 1
 
+    /**
+     * This is for defensive strategy --> if the ratio is be
+     * @param move
+     * @param depth
+     * @param maximizingPlayer
+     * @param heuristicValue
+     * @return
+     */
+
     public int minimaxDefensive(HusMove move, int depth, boolean maximizingPlayer, int heuristicValue) {
 
         int[] myPits = m_board_state.getPits()[m_player_id];
