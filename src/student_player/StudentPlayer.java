@@ -117,7 +117,7 @@ public class StudentPlayer extends HusPlayer {
 
                         int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
                         //int heuristic = 0;
-                        int heuristic = strategy.minimax(moves.get(i), 6, true, possibleHeuristic);
+                        int heuristic = strategy.minimax(moves.get(i), 2, true, possibleHeuristic);
 
                         if (heuristic > bestValue) {
                             pit_to_play = moves.get(i).getPit();
