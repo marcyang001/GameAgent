@@ -55,11 +55,18 @@ public class StudentPlayer extends HusPlayer {
         //strategy.minimaxDefensive(board_state, moves.get(0), 2, true, 0);
 
 
-        //first move => get the greatest relay
+        /**
+         * first move and first player => get the greatest relay
+         */
+
         if (player_id == board_state.firstPlayer() && board_state.getTurnNumber() == 0) {
             move = moves.get(0);
         }
         else {
+
+            /**
+             * when the player is played second, choose a good move based on one opponent move
+             */
 
             //apply minmax when you already know a move of the opponent
             if (board_state.getTurnNumber() == 0) {
@@ -73,7 +80,8 @@ public class StudentPlayer extends HusPlayer {
                     int alpha = Integer.MIN_VALUE;
                     int beta = Integer.MAX_VALUE;
 
-                    int possibleHeuristics = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
+                    int possibleHeuristics = Integer.MIN_VALUE;
+                            //MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
                     int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), 4, alpha, beta,true, possibleHeuristics);
 
                     if (heuristic > bestValue) {
@@ -113,18 +121,23 @@ public class StudentPlayer extends HusPlayer {
                  */
                 double ratio = MyTools.myRockToOpRockRatio(my_pits, op_pits);
 
-
+                /**
+                 * this is the attacking strategy
+                 * when the ratio is >= 0.7
+                 *
+                 */
 
                 // around 40 / 56 and above
                 if (ratio >= 0.7) {
+
                     System.out.println(" 0.7 <=RATIO ");
                     int pit_to_play = moves.get(MyTools.randomLegalMove(moves.size())).getPit();
 
 
-                    System.out.println("random pit :" + pit_to_play);
+                    //System.out.println("random pit :" + pit_to_play);
 
                     int depth;
-                    if (board_state.getTurnNumber() <= 50 && ratio >=1.4) {
+                    if (board_state.getTurnNumber() <= 40 && ratio >=1.4) {
                         depth = 8;
                     }
                     else if (ratio >= 2.0) {
@@ -139,7 +152,9 @@ public class StudentPlayer extends HusPlayer {
 
                         int alpha = Integer.MIN_VALUE;
                         int beta = Integer.MAX_VALUE;
-                        int possibleHeuristic = MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
+
+                        int possibleHeuristic = Integer.MIN_VALUE;
+                                //MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
 
                         int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), depth, alpha, beta, true, possibleHeuristic);
 
@@ -157,14 +172,15 @@ public class StudentPlayer extends HusPlayer {
                     }
 
                     move = new HusMove(pit_to_play, player_id);
-                    System.out.println("\n\nDepth is "  + depth + "\n\n");
-                    System.out.println("Pit chosen by minimax: " + pit_to_play);
+                    System.out.println("Depth is "  + depth);
+                    //System.out.println("Pit chosen by minimax: " + pit_to_play);
 
                 }
-
+                /**
+                 * this is the defensive strategy when the ratio is < 0.7
+                 */
                 // ratio of 36 / 60 at least
                 else if (ratio < 0.7) {
-
 
                     System.out.println("Defensive Min max!!!!! ");
 
@@ -175,6 +191,7 @@ public class StudentPlayer extends HusPlayer {
                     if (ratio >= 0.5) {
                         depth = 7;
                     }
+                    //less rock, the algorithm can have time to go deeper
                     else {
                         depth = 8;
                     }
@@ -201,10 +218,11 @@ public class StudentPlayer extends HusPlayer {
                         }
                     }
 
-                    System.out.println("\n\nDepth is "  + depth + "\n\n");
+                    System.out.println("Depth is "  + depth);
                     move = new HusMove(pit_to_play, player_id);
 
                 }
+                //should never get here
                 else {
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
                     System.out.println("Random move ");
