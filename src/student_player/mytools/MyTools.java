@@ -65,7 +65,6 @@ public class MyTools extends StudentPlayer{
 
         }
 
-        //System.out.println("possible capture   " + captureRocks);
 
         return captureRocks;
     }
@@ -89,18 +88,6 @@ public class MyTools extends StudentPlayer{
 
     }
 
-
-
-
-    public static int getTotalRocks(int[] pits) {
-
-        int my_totalRocks = 0;
-        for (int i = 0; i < pits.length/2; i++) {
-            my_totalRocks = my_totalRocks + pits[i] + pits[pits.length - 1 - i];
-        }
-
-        return my_totalRocks;
-    }
 
 
 

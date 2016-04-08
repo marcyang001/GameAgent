@@ -18,10 +18,6 @@ public class Strategy {
 
     enum PitType{
         MOVABLE,
-        UNMOVABLE,
-        FRONT,
-        BACK,
-        ALL,
         CAPTURED,
         UNCAPTURED
 
@@ -262,6 +258,8 @@ public class Strategy {
             if (pits[i] <= 1 || pits[pits.length- 1 - i] <= 1) {
                 my_unmovableRocks = my_unmovableRocks + 1;
             }
+
+            
 
         }
 

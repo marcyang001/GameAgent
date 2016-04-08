@@ -80,7 +80,7 @@ public class StudentPlayer extends HusPlayer {
                     int beta = Integer.MAX_VALUE;
 
                     int possibleHeuristics = Integer.MIN_VALUE;
-                            //MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
+
                     int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), 4, alpha, beta,true, possibleHeuristics);
 
                     if (heuristic > bestValue) {
@@ -153,7 +153,6 @@ public class StudentPlayer extends HusPlayer {
                         int beta = Integer.MAX_VALUE;
 
                         int possibleHeuristic = Integer.MIN_VALUE;
-                                //MyTools.getTotalRocks(my_pits) + MyTools.possibleCapture(my_pits, op_pits, moves.get(i).getPit());
 
                         int heuristic = strategy.alphabetaMinimax(board_state, moves.get(i), depth, alpha, beta, true, possibleHeuristic);
 
