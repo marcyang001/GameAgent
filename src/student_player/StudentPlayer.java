@@ -182,7 +182,7 @@ public class StudentPlayer extends HusPlayer {
                 // ratio of 36 / 60 at least
                 else if (ratio < 0.7) {
 
-                    System.out.println("Defensive Min max!!!!! ");
+                    System.out.println("Defensive Min max");
 
                     move = moves.get(MyTools.randomLegalMove(moves.size()));
                     int pit_to_play = move.getPit();
