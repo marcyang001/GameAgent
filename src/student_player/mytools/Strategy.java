@@ -1,13 +1,12 @@
 package student_player.mytools;
 
-import hus.HusBoard;
+
 import hus.HusBoardState;
 import hus.HusMove;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import student_player.mytools.MyTools;
+
 /**
  * Created by marcyang on 2016-04-05.
  */
@@ -75,15 +74,13 @@ public class Strategy {
 
         if (maximizingPlayer) {
 
-            //List<PotentialOutCome> lg_list = MyTools.ColumnWithLargestSum(opPits, MyTools.Outcome.GAIN);
+            PackagePit pitPack = getTotalRocks(myPits);
 
-            //largest number of rocks that I can capture with that move
-            //PotentialOutCome gainoutcome = MyTools.potentialOutCome(lg_list, myPits, MyTools.Outcome.GAIN);
 
-            int bestValue = getTotalRocks(myPits, PitType.ALL)
+            int bestValue = pitPack.my_totalRocks
                     + rocksCapturedOrNot(opPits, myPits, PitType.CAPTURED)
-                    + numOfPitsLeft(myPits, PitType.MOVABLE)
-                    - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+                    + pitPack.my_movableRocks
+                    - pitPack.my_unmovableRocks;
 
 
             for (int i = 0; i < legalMoves.size(); i++) {
@@ -99,14 +96,12 @@ public class Strategy {
 
         } else {
 
-            //List<PotentialOutCome> loss_list = MyTools.ColumnWithLargestSum(myPits, MyTools.Outcome.GAIN);
-            //largest number of rocks that I can capture with that move
-            //PotentialOutCome loss_outcome = MyTools.potentialOutCome(loss_list, opPits, MyTools.Outcome.GAIN);
+            PackagePit pitPack = getTotalRocks(myPits);
 
-            int bestValue = getTotalRocks(myPits, PitType.ALL)
+            int bestValue = pitPack.my_totalRocks
                     - rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED)
-                    + numOfPitsLeft(myPits, PitType.MOVABLE)
-                    - numOfPitsLeft(myPits, PitType.UNMOVABLE);
+                    + pitPack.my_movableRocks
+                    - pitPack.my_unmovableRocks;
 
             for (int i = 0; i < legalMoves.size(); i++) {
 
@@ -153,11 +148,13 @@ public class Strategy {
             return Integer.MIN_VALUE;
         }
         if (maximizingPlayer) {
+
+            PackagePit pitInfo = getTotalRocks(myPits);
             // new heuristic function designed for defensive strategy
-            int bestValue = getTotalRocks(myPits, PitType.ALL)
+            int bestValue = pitInfo.my_totalRocks
                     + rocksCapturedOrNot(myPits, opPits, PitType.UNCAPTURED)
-                    + numOfPitsLeft(myPits, PitType.MOVABLE)
-                    + getTotalRocks(myPits, PitType.BACK);
+                    + pitInfo.my_movableRocks
+                    + pitInfo.my_backRocks;
 
 
             for (int i = 0; i<legalMoves.size(); i++) {
@@ -173,10 +170,12 @@ public class Strategy {
         }
         else {
 
-            int bestValue = getTotalRocks(myPits, PitType.ALL)
-                    - numOfPitsLeft(myPits, PitType.UNMOVABLE)
+            PackagePit pitInfo = getTotalRocks(myPits);
+
+            int bestValue = pitInfo.my_totalRocks
+                    - pitInfo.my_unmovableRocks
                     - rocksCapturedOrNot(myPits, opPits, PitType.CAPTURED)
-                    - getTotalRocks(myPits,PitType.FRONT);
+                    - pitInfo.my_frontRocks;
 
             for (int i = 0; i < legalMoves.size(); i++) {
                 bestValue = Math.min(bestValue, alphaBetaDefensive(cloned_board_state, legalMoves.get(i), depth - 1, alpha, beta, true, bestValue));
@@ -221,33 +220,55 @@ public class Strategy {
         return numpits;
     }
 
+
     /**
      * Calculate ALL the rocks that a player has
      * Calculate just the inner/front row
      * Calculate just the outer/back row ==>defensive strategy
      * @param pits
-     * @param type
-     * @return
+     * @return a package that has some pit information
      */
 
-    public int getTotalRocks(int[] pits, PitType type) {
+    public PackagePit getTotalRocks(int[] pits) {
 
         int my_totalRocks = 0;
+        int my_frontRocks = 0;
+        int my_backRocks = 0;
+
+        int my_movableRocks = 0;
+        int my_unmovableRocks = 0;
+
         for (int i = 0; i < pits.length/2; i++) {
-            if (type == PitType.ALL) {
-                my_totalRocks = my_totalRocks + pits[i] + pits[pits.length - 1 - i];
+
+
+
+            my_totalRocks = my_totalRocks + pits[i] + pits[pits.length - 1 - i];
+
+
+
+            my_frontRocks = my_frontRocks + pits[pits.length - 1 - i];
+
+
+            my_backRocks = my_backRocks + pits[i];
+
+
+
+
+            if (pits[i] >1 || pits[pits.length- 1 - i] > 1) {
+                my_movableRocks = my_movableRocks + 1;
             }
-            else if (type == PitType.FRONT) {
-                my_totalRocks = my_totalRocks + pits[pits.length - 1 - i];
+
+
+            if (pits[i] <= 1 || pits[pits.length- 1 - i] <= 1) {
+                my_unmovableRocks = my_unmovableRocks + 1;
             }
-            else if (type == PitType.BACK) {
-                my_totalRocks = my_totalRocks + pits[i];
-            }
-            else {
-                //should never get here
-            }
+
         }
-        return my_totalRocks;
+
+
+        PackagePit pitpack = new PackagePit(my_totalRocks,my_frontRocks, my_backRocks,my_movableRocks,my_unmovableRocks);
+
+        return pitpack;
     }
 
 
@@ -290,10 +311,5 @@ public class Strategy {
 
         return numRocks;
     }
-
-
-
-
-
 
 }//end of class

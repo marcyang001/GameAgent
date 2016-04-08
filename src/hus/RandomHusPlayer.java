@@ -1,7 +1,6 @@
 package hus;
 
 import student_player.mytools.MyTools;
-import student_player.mytools.PotentialOutCome;
 
 import java.util.ArrayList;
 import java.util.Random;
